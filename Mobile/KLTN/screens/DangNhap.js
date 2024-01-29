@@ -1,153 +1,150 @@
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import axios from 'axios';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, } from 'react-native';
+import { FontAwesome, AntDesign } from "@expo/vector-icons";
 
 export default function DangNhap({ navigation }) {
-    const [phone_number, setPhone] = useState('');
-    const [password, setPassword] = useState('');
+  return (
+    <View style={styles.container}>
 
-    const dangNhap = () => {
-        axios
-            .post("https://vuquanghuydev.pythonanywhere.com/api/v1/auth/login/", {
-                phone_number: phone_number,
-                password: password,
-            })
-            .then((response) => {
-                // 
-                console.log(response.data);
-                // 
-                if (response.data.message === "Login successful") {
-                    console.log("Đăng nhập thành công");
-                    navigation.navigate("DatDichVu");
-                }
-            })
-            .catch((error) => {
-                if (error.response && error.response.data) {
-                    // Truy cập thông tin lỗi từ API
-                    const { message } = error.response.data;
-                    console.error("Lỗi API:", error.response.data);
+      <View style={styles.pnl1}>
+        <Text style={styles.lbl1}>HELP CARE!</Text>
+      </View>
 
-                    if (message === "Invalid phone number or password") {
-                        console.log("Sai mật khẩu hoặc sai tài khoản");
-                    } if (message === "Missing required fields") {
-                        console.log("Điền thiếu thông tin");
-                    } else {
-                        console.log("Lỗi khác:", message);
-                    }
-                } else {
-                    console.error("Lỗi kết nối API:", error);
-                    // Xử lý lỗi kết nối API nếu không có response.data
-                }
-            });
-    }
-
-    return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.t1}>Đăng nhập</Text>
-            </View>
-            <View style={styles.body}>
-                <Text style={styles.t2}>Số điện thoại</Text>
-                <View style={styles.t3}>
-                    <TextInput
-                        style={styles.t5}
-                        onChangeText={(phone_number) => setPhone(phone_number)}
-                        value={phone_number}
-                        placeholder="Nhập số điện thoại"
-                    />
-                </View>
-                <Text style={styles.t2}>Nhập mật khẩu</Text>
-                <View style={styles.t3}>
-                    <TextInput
-                        style={styles.t5}
-                        onChangeText={(password) => setPassword(password)}
-                        value={password}
-                        placeholder="Nhập mật khẩu"
-                        secureTextEntry={true}
-                    />
-                </View>
-                <Text style={styles.t4} onPress={() => navigation.navigate("Otp")}>Quên mật khẩu ?</Text>
-                <TouchableOpacity style={styles.b1} onPress={dangNhap}>
-                    <Text style={styles.b1_1}>ĐĂNG NHẬP</Text>
-                </TouchableOpacity>
-                <View style={styles.c1}>
-                    <Text style={styles.t6} >Hoặc bạn có thể đăng ký dưới đây</Text>
-                    <Text style={styles.t7} onPress={() => navigation.navigate("DangKy")}>ĐĂNG KÝ</Text>
-                </View>
-            </View>
-            <StatusBar style="auto" />
+      <View style={styles.pnl2}>
+        <View style={styles.form1}>
+          <TextInput
+            style={styles.txt1}
+            placeholder="Số điện thoại"
+          />
+          <View style={styles.i1}>
+            <AntDesign name="phone" size={30} color="gray" />
+          </View>
         </View>
-    );
+
+        <View style={styles.form2}>
+          <TextInput
+            style={styles.txt1}
+            placeholder="Mật khẩu"
+            secureTextEntry={true}
+          />
+          <View style={styles.i1}>
+          <AntDesign name="lock" size={30} color="gray" />
+          </View>
+        </View>
+
+        <View style={styles.pnl4} onPress={() => navigation.navigate("OTP")}>
+          <Text style={styles.lbl2}>Quên mật khẩu ?</Text>
+        </View>
+
+        <TouchableOpacity style={styles.btn1} >
+          <Text style={styles.lbl3}>Đăng nhập</Text>
+        </TouchableOpacity>
+
+        <View style={styles.pnl5}>
+          <Text style={styles.lbl4}>Bạn chưa có tài khoản?</Text>
+          <Text style={styles.lbl5} onPress={() => navigation.navigate("DangKy")} >Đăng ký</Text>
+        </View>
+      </View>
+      <StatusBar style="auto" />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'white',
-    },
-    header: {
-        alignItems: 'center',
-        flex: 0.2,
-    },
-    body: {
-        flex: 0.8,
-    },
-    // custom text
-    t1: {
-        fontSize: 40,
-        marginTop: 50,
-        color: '#FFBF67',
-        fontWeight: 'bold',
-    },
-    t2: {
-        paddingLeft: '10%',
-        fontSize: 15,
-        marginTop: 25,
-    },
-    t3: {
-        height: 60,
-        width: '80%',
-        marginLeft: '10%',
-        borderColor: '#FFBF67',
-        borderWidth: 1,
-        borderLeftWidth: 0,
-        borderTopWidth: 0,
-        borderRightWidth: 0,
-    },
-    t4: {
-        paddingLeft: '65%',
-        fontSize: 15,
-        marginTop: 20,
-        marginBottom: 80,
-    },
-    t5: {
-        marginTop: 20,
-        fontSize: 20,
-    },
-    t7: {
-        paddingTop: 10,
-        fontSize: 15,
-        color: '#FFBF67',
-    },
-    // custom component
-    c1: {
-        marginTop: 130,
-        alignItems: 'center',
-    },
-    // custom button
-    b1: {
-        backgroundColor: '#FFBF67',
-        height: 60,
-        marginBottom: 20,
-        width: '80%',
-        marginLeft: '10%',
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    b1_1: {
-        fontSize: 20,
-        color: 'white',
-    },
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+
+  pnl1: {
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 0.3,
+  },
+  lbl1: {
+    fontSize: 40,
+    color: "#2baf66",
+    fontWeight: "bold",
+  },
+
+  pnl2: {
+    flex: 0.7,
+  },
+  form1: {
+    height: 60,
+    width: "80%",
+    marginLeft: "10%",
+    marginBottom: 40,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "gray",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  form2: {
+    height: 60,
+    width: "80%",
+    marginLeft: "10%",
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "gray",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  txt1: {
+    paddingLeft: 10,
+    fontSize: 20,
+    width: "85%",
+  },
+  i1: {
+    resizeMode: "center",
+    width: "15%",
+  },
+
+  pnl4: {
+    height: 30,
+    width: '80%',
+    marginLeft: "10%",
+    marginTop: 10,
+    marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 10,
+  },
+  lbl2: {
+    fontSize: 20,
+    color: "#2baf66",
+  },
+
+  btn1: {
+    backgroundColor: "#2baf66",
+    height: 60,
+    width: "80%",
+    marginLeft: "10%",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 50,
+  },
+  lbl3: {
+    fontSize: 20,
+    color: "white",
+    fontWeight: "bold",
+  },
+
+  pnl5: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  lbl4: {
+    fontSize: 20,
+  },
+  lbl5: {
+    fontSize: 20,
+    color: "#2baf66",
+    marginLeft: 10,
+  },
 });

@@ -1,214 +1,210 @@
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import axios from 'axios';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, ScrollView, } from 'react-native';
+import { FontAwesome, AntDesign, Feather } from "@expo/vector-icons";
 
 export default function DangKy({ navigation }) {
-    const [phone_number, setPhone] = useState('');
-    const [password1, setPassword] = useState('');
-    const [password2, setPassword1] = useState('');
+  return (
 
-    const dangKy = () => {
+    <View style={styles.container}>
+      <ScrollView style={styles.scl1}>
+        <View style={styles.c1}>
+          <View style={styles.pnl1}>
+            <Text style={styles.lbl1}>HELP CARE!</Text>
+          </View>
 
-        // Gọi API đăng nhập bằng axios
-        axios
-            .post("https://vuquanghuydev.pythonanywhere.com/api/v1/auth/register/", {
-                phone_number: phone_number,
-                password1: password1,
-                password2: password2,
-            })
-            .then((response) => {
-                // 
-                console.log(response.data);
-                // 
-                if (response.data.message === "Register successful") {
-                    console.log("Đăng ký thành công");
-                    navigation.navigate("DangNhap");
-                }
-            })
-            .catch((error) => {
-                if (error.response && error.response.data) {
-                    // Truy cập thông tin lỗi từ API
-                    const { message } = error.response.data;
-                    console.error("Lỗi API:", error.response.data);
+          <View style={styles.pnl2}>
 
-                    if (message === "User already exists") {
-                        console.log("Số điện thoại này đã được đăng ký. Vui lòng sử dụng số điện thoại khác.");
-                    } else if (message === "Missing required fields") {
-                        console.log("Điền thiếu thông tin ");
-                    } else if (message === "(1) The string supplied did not seem to be a phone number.") {
-                        console.log("Số điện thoại phải là số");
-                    } else if (message === "__str__ returned non-string (type NoneType)") {
-                        console.log("Số điện thoại phải đủ 10 số và phải là số");
-                    } else {
-                        console.log("Lỗi khác:", message);
-                    }
-                } else {
-                    console.error("Lỗi kết nối API:", error);
-                    // Xử lý lỗi kết nối API nếu không có response.data
-                }
-            });
-    }
-    return (
-        <View style={styles.container}>
-            <ScrollView>
-                <View style={styles.header}>
-                    <Text style={styles.t1}>Đăng Ký</Text>
-                </View>
-                <View style={styles.body}>
-                    <Text style={styles.t2}>Họ và Tên</Text>
-                    <View style={styles.t3}>
-                        <TextInput
-                            style={styles.t5}
-                            // onChangeText={handleTextChange1}
-                            // value={textValue}
-                            placeholder="Điền họ và tên"
-                        />
-                    </View>
-                    <Text style={styles.t2}>Địa chỉ</Text>
-                    <View style={styles.t3}>
-                        <TextInput
-                            style={styles.t5}
-                            // onChangeText={handleTextChange1}
-                            // value={textValue}
-                            placeholder="Điền địa chỉ"
-                        />
-                    </View>
-                    <Text style={styles.t2}>Email</Text>
-                    <View style={styles.t3}>
-                        <TextInput
-                            style={styles.t5}
-                            placeholder="Điền email"
-                        />
-                    </View>
-                    <Text style={styles.t2}>SĐT</Text>
-                    <View style={styles.t3}>
-                        <TextInput
-                            style={styles.t5}
-                            value={phone_number}
-                            onChangeText={(phone_number) => setPhone(phone_number)}
-                            placeholder="Điền số điện thoại"
-                        />
-                    </View>
-                    <Text style={styles.t2}>Mật khẩu</Text>
-                    <View style={styles.t3}>
-                        <TextInput
-                            style={styles.t5}
-                            value={password1}
-                            onChangeText={(password1) => setPassword(password1)}
-                            placeholder="Điền mật khẩu"
-                            secureTextEntry={true}
-                        />
-                    </View>
-                    <Text style={styles.t2}>Nhập lại mật khẩu</Text>
-                    <View style={styles.t3}>
-                        <TextInput
-                            style={styles.t5}
-                            value={password2}
-                            onChangeText={(password2) => setPassword1(password2)}
-                            placeholder="Nhập lại mật khẩu"
-                            secureTextEntry={true}
-                        />
-                    </View>
-                    <View style={styles.c2} >
-                        <TouchableOpacity style={styles.b1}>
-                            <Text style={styles.b1_1} onPress={dangKy}>Đăng Ký</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.b2}>
-                            <Text style={styles.b2_2} onPress={() => navigation.navigate("DangNhap")}>Đăng nhập</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </ScrollView>
-            <StatusBar style="auto" />
+            <View style={styles.form1}>
+              <TextInput
+                style={styles.txt1}
+                placeholder="Họ và tên"
+              />
+              <View style={styles.i1}>
+                <AntDesign name="user" size={30} color="gray" />
+              </View>
+            </View>
+
+            <View style={styles.form1}>
+              <TextInput
+                style={styles.txt1}
+                placeholder="Số điện thoại"
+              />
+              <View style={styles.i1}>
+                <AntDesign name="phone" size={30} color="gray" />
+              </View>
+            </View>
+
+            <View style={styles.form1}>
+              <TextInput
+                style={styles.txt1}
+                placeholder="Địa chỉ"
+              />
+              <View style={styles.i1}>
+                <Feather name="map-pin" size={30} color="gray" />
+              </View>
+            </View>
+
+            <View style={styles.form1}>
+              <TextInput
+                style={styles.txt1}
+                placeholder="Mật khẩu"
+                secureTextEntry={true}
+              />
+              <View style={styles.i1}>
+                <AntDesign name="lock" size={30} color="gray" />
+              </View>
+            </View>
+
+            <View style={styles.form1}>
+              <TextInput
+                style={styles.txt1}
+                placeholder="Nhập lại mật khẩu"
+                secureTextEntry={true}
+              />
+              <View style={styles.i1}>
+                <AntDesign name="lock" size={30} color="gray" />
+              </View>
+            </View>
+
+            <View style={styles.c2}>
+              <TouchableOpacity style={styles.btn1} >
+                <Text style={styles.lbl3}>Đăng ký</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.btn2} onPress={() => navigation.navigate("DangNhap")}>
+                <Text style={styles.lbl6}>Đăng nhập</Text>
+                <AntDesign name="arrowright" size={20} color="#2baf66" />
+              </TouchableOpacity>
+            </View>
+
+
+          </View>
         </View>
-    );
+      </ScrollView>
+      <StatusBar style="auto" />
+    </View >
+
+
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'white',
-    },
-    header: {
-        alignItems: 'center',
-        flex: 0.15,
-    },
-    body: {
-        flex: 0.85,
-    },
-    // custom text
-    t1: {
-        fontSize: 40,
-        marginTop: 50,
-        color: '#FFBF67',
-        fontWeight: 'bold',
-    },
-    t2: {
-        paddingLeft: '10%',
-        fontSize: 15,
-        marginTop: 25,
-    },
-    t3: {
-        height: 60,
-        width: '80%',
-        marginLeft: '10%',
-        borderColor: '#FFBF67',
-        borderWidth: 1,
-        borderLeftWidth: 0,
-        borderTopWidth: 0,
-        borderRightWidth: 0,
-    },
-    t4: {
-        paddingLeft: '65%',
-        fontSize: 15,
-        marginTop: 5,
-        marginBottom: 80,
-    },
-    t5: {
-        marginTop: 20,
-        fontSize: 20,
-    },
-    t7: {
-        paddingTop: 10,
-    },
-    // custom component
-    c1: {
-        marginTop: 180,
-        alignItems: 'center',
-    },
-    c2: {
-        width: '80%',
-        marginLeft: '10%',
-        marginTop: 100,
-        flexDirection: 'row',
-    },
-    // custom button
-    b1: {
-        backgroundColor: '#FFBF67',
-        height: 60,
-        width: '40%',
-        marginBottom: 20,
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    b2: {
-        // backgroundColor: '#FFBF67',
-        height: 60,
-        width: '40%',
-        marginBottom: 20,
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginLeft: '20%',
-    },
-    b1_1: {
-        fontSize: 20,
-        color: 'white',
-    },
-    b2_2: {
-        fontSize: 20,
-        color: '#FFBF67',
-    },
+
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+
+  scl1: {
+    flex: 1,
+  },
+
+  c1: {
+    height: 900,
+  },
+
+  pnl1: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: 200,
+  },
+  lbl1: {
+    fontSize: 40,
+    color: "#2baf66",
+    fontWeight: "bold",
+  },
+
+  pnl2: {
+    flex: 700,
+  },
+  form1: {
+    height: 60,
+    width: "80%",
+    marginLeft: "10%",
+    marginBottom: 40,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "gray",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  txt1: {
+    paddingLeft: 10,
+    fontSize: 20,
+    width: "85%",
+  },
+  i1: {
+    resizeMode: "center",
+    width: "15%",
+  },
+
+  pnl4: {
+    height: 30,
+    width: '80%',
+    marginLeft: "10%",
+    marginTop: 10,
+    marginBottom: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 10,
+  },
+  lbl2: {
+    fontSize: 20,
+    color: "#2baf66",
+  },
+
+  btn1: {
+    backgroundColor: "#2baf66",
+    height: 60,
+    width: "37%",
+    marginLeft: "10%",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 50,
+  },
+
+  btn2: {
+    height: 60,
+    width: "37%",
+    marginLeft: "7%",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 50,
+    flexDirection: 'row',
+  },
+
+  c2: {
+    flexDirection: 'row',
+  },
+
+
+  lbl3: {
+    fontSize: 20,
+    color: "white",
+    fontWeight: "bold",
+  },
+
+  lbl6: {
+    fontSize: 15,
+    color: "#2baf66",
+    fontWeight: "bold",
+    marginRight: 10,
+  },
+
+  pnl5: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  lbl4: {
+    fontSize: 20,
+  },
+  lbl5: {
+    fontSize: 20,
+    color: "#2baf66",
+    marginLeft: 10,
+  },
 });

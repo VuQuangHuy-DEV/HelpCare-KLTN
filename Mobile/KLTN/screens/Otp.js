@@ -1,60 +1,46 @@
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 
-export default function Otp({ navigation }) {
-    const [textValue, setTextValue] = useState('');
+export default function OTP({ navigation }) {
 
-    const handleTextChange = (newText) => {
-        setTextValue(newText);
-    };
     return (
         <View style={styles.container}>
-            <View style={styles.body}>
-                <Text style={styles.t1}>Vertification</Text>
-                <Text style={styles.t2}>Please vertify your OTP code</Text>
+            <View style={styles.header}>
+                <Image style={styles.img1} source={require('../imgs/Otp.png')} />
             </View>
-            <View style={styles.footer}>
-                <Text style={styles.t3}>Code</Text>
+            <View style={styles.body}>
+                <Text style={styles.lbl1}>Nhập mã OTP bao gồm 5 số được gửi về số điện thoại:</Text>
                 <View style={styles.c1}>
-                    <View style={styles.c2}>
+                    <View style={styles.pnl1}>
                         <TextInput
-                            style={styles.t4}
-                            onChangeText={handleTextChange}
-                            value={textValue}
+                            style={styles.txt1}
                         />
                     </View>
-                    <View style={styles.c2}>
+                    <View style={styles.pnl2}>
                         <TextInput
-                            style={styles.t4}
-                            onChangeText={handleTextChange}
-                            value={textValue}
+                            style={styles.tx1}
                         />
                     </View>
-                    <View style={styles.c2}>
+                    <View style={styles.pnl2}>
                         <TextInput
-                            style={styles.t4}
-                            onChangeText={handleTextChange}
-                            value={textValue}
+                            style={styles.txt1}
                         />
                     </View>
-                    <View style={styles.c2}>
+                    <View style={styles.pnl2}>
                         <TextInput
-                            style={styles.t4}
-                            onChangeText={handleTextChange}
-                            value={textValue}
+                            style={styles.tx1}
                         />
                     </View>
-                    <View style={styles.c2}>
+                    <View style={styles.pnl2}>
                         <TextInput
-                            style={styles.t4}
-                            onChangeText={handleTextChange}
-                            value={textValue}
+                            style={styles.tx1}
                         />
                     </View>
                 </View>
-                <TouchableOpacity style={styles.b1} >
-                    <Text style={styles.b1_1}>SIGN IN</Text>
+                <Text>Xác minh số điện thoại trong: </Text>
+                <TouchableOpacity style={styles.btn1} >
+                    <Text style={styles.txt2}>Xác minh</Text>
                 </TouchableOpacity>
             </View>
             <StatusBar style="auto" />
@@ -65,67 +51,59 @@ export default function Otp({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'orange',
+        backgroundColor: 'white',
+    },
+    header: {
+        flex: 0.4,
+        justifyContent:'center',
+        alignItems:'center',    
+    },
+    img1:{
+        height:'100%',
     },
     body: {
-        flex: 0.25,
-        alignItems: 'center',
-        justifyContent: 'center',
+        flex: 0.6,
+        width: '80%',
+        marginLeft: '10%',
+        marginTop:15,
     },
-    footer: {
-        flex: 0.85,
-        backgroundColor: 'white',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-    },
-    t1: {
-        color: 'white',
-        fontSize: 30,
-    },
-    t2: {
-        color: 'white',
-        fontSize: 20,
-        marginTop: 5,
-    },
-    t3: {
-        fontSize: 30,
-        paddingTop: 50,
-        paddingLeft: '10%',
-        paddingBottom: 20,
-    },
-    t4: {
-        fontSize: 20,
+    lbl1: {
+        fontSize: 15,
+        marginBottom: 15,
     },
     c1: {
         height: 50,
-        width: '80%',
         flexDirection: 'row',
-        marginLeft: '10%',
+        marginBottom: 15,
     },
-    c2: {
-        height: '100%',
-        width: '16%',
-        borderWidth: 1,
-        borderLeftWidth: 0,
-        borderTopWidth: 0,
-        borderRightWidth: 0,
+    pnl1: {
+        width: '17%',
+        borderRadius: 10,
+        borderColor: 'gray',
+        borderWidth: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: '4%',
     },
-    b1: {
-        marginTop: 40,
-        backgroundColor: 'orange',
+    pnl2: {
+        width: '17%',
+        marginLeft: '4%',
+        borderRadius: 10,
+        borderColor: 'gray',
+        borderWidth: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    btn1: {
+        marginTop: 15,
+        backgroundColor: '#2baf66',
         height: 60,
-        marginBottom: 20,
-        width: '50%',
-        marginLeft: '25%',
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    b1_1: {
+    txt2: {
         fontSize: 20,
         color: 'white',
+        fontWeight: 'bold',
     },
 });

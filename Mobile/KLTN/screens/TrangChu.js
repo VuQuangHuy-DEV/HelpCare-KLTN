@@ -1,48 +1,70 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import DatDichVu from '../components/DatDichVu';
+import Donhang from '../components/DonHang';
+import DangBai from '../components/DangBai';
+import LichSu from '../components/LichSu';
+import TaiKhoan from '../components/TaiKhoan';
 
+import { Ionicons, MaterialCommunityIcons, MaterialIcons, Feather } from "@expo/vector-icons";
+
+// Bottom tab
+const Tab = createBottomTabNavigator();
 
 export default function TrangChu({ navigation }) {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.t1}>HelpCare</Text>
-            <TouchableOpacity style={styles.b1} onPress={() => navigation.navigate("DangNhap")}>
-                <Text style={styles.b1_1} >DangNhap</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.b1} onPress={() => navigation.navigate("DangKy")}>
-                <Text style={styles.b1_1}>DangKy</Text>
-            </TouchableOpacity>
-            <StatusBar style="auto" />
-        </View>
-    );
-}
+  return (
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: 'white',
-    },
-    t1: {
-        fontSize: 30,
-        marginTop: 100,
-        marginBottom: 50,
-        color: '#FFBF67',
-        fontSize: 40,
-        marginBottom: 400,
-        fontWeight: 'bold',
-    },
-    b1: {
-        backgroundColor: '#FFBF67',
-        height: 60,
-        marginBottom: 20,
-        width: '80%',
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    b1_1: {
-        fontSize: 20,
-        color: 'white',
-    },
-});
+    <Tab.Navigator
+      initialRouteName='DatDichVu'
+
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarIcon: ({ focused, color, size }) => {
+
+          if (route.name === 'DatDichVu') {
+            return <Ionicons name={focused ? 'cart' : 'cart-outline'} size={size} color={focused ? '#2baf66' : 'gray'} />;
+          } else if (route.name === 'DangBai') {
+            return <MaterialCommunityIcons name={focused ? 'post' : 'post-outline'} size={size} color={focused ? '#2baf66' : 'gray'} />;
+          } else if (route.name === 'DonHang') {
+            return <Ionicons name={focused ? 'home' : 'home-outline'} size={size} color={focused ? '#2baf66' : 'gray'} />;
+          } else if (route.name === 'LichSu') {
+            return <MaterialIcons name={focused ? 'manage-history' : 'history'} size={size} color={focused ? '#2baf66' : 'gray'} />;
+          } else if (route.name === 'TaiKhoan') {
+            return <Feather name={focused ? 'users' : 'user'} size={size} color={focused ? '#2baf66' : 'gray'} />;
+          }
+        },
+        tabBarActiveTintColor: '#2baf66',
+        tabBarInactiveTintColor: 'gray',
+
+      })}
+
+    >
+      <Tab.Screen name="DatDichVu"
+        component={DatDichVu}
+      />
+
+      <Tab.Screen name="DonHang"
+        component={Donhang}
+        options={{
+
+        }} />
+      <Tab.Screen name="LichSu"
+        component={LichSu}
+        options={{
+
+
+        }} />
+      <Tab.Screen name="DangBai"
+        component={DangBai}
+        options={{
+
+
+        }} />
+      <Tab.Screen name="TaiKhoan"
+        component={TaiKhoan}
+        options={{
+
+
+        }} />
+    </Tab.Navigator>
+  );
+}
