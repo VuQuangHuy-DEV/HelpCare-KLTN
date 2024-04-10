@@ -6,7 +6,7 @@ import { appName } from "../config-global";
 const Intro = ({ navigation }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      // navigation.navigate("DangNhap");
+       navigation.navigate("DangNhap");
     }, 2000);
 
     return () => clearTimeout(timer);

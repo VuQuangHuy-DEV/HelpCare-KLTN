@@ -1,4 +1,6 @@
 import Routing from "./router/Routing";
+import 'react-native-gesture-handler';
+
 // import { registerTranslation } from "react-native-paper-dates";
 // registerTranslation("en", {
 //   save: "Save",

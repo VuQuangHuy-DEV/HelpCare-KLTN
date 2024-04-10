@@ -1,38 +1,21 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Image, SafeAreaView } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
 
-
 import DsDichVu from "../components/DatDichVu/DsDichVu";
-import Donhang from "../components/DonHang";
-import DangBai from "../components/DangBai";
+
 import LichSu from "../components/LichSu";
 import TrangChuTab from "../components/TrangChuTab";
 import TrangCaNhan from "./ThongTin/TrangCaNhan";
 import PostStackNavigator from "./BaiViet/Post";
-
-
-
+import TaiKhoanStack from "./ThongTin/TaiKhoanStack";
+import ChatStack from "./Chat/chatStack";
 
 //Thông Báo
 import StackThongBao from "./ThongBao/DSThongBao";
 
-
 const Tab = createBottomTabNavigator();
-const BaiDangStack = createStackNavigator();
-
-function BaiDangScreen() {
-  return (
-    <BaiDangStack.Navigator headerMode="none">
-      <BaiDangStack.Screen
-        name="ChiTietBaiDangStack"
-        component={ChiTietBaiDang}
-      />
-    </BaiDangStack.Navigator>
-  );
-}
 
 const TabScreen = () => {
   return (
@@ -57,13 +40,13 @@ const TabScreen = () => {
             case "Bài Viết":
               iconName = focused ? "create" : "create-outline";
               return <Ionicons name={iconName} size={size} color={color} />;
-              case "Bài Viêt":
-                iconName = focused ? "create" : "create-outline";
-                return <Ionicons name={iconName} size={size} color={color} />;
+            case "Bài Viêt":
+              iconName = focused ? "create" : "create-outline";
+              return <Ionicons name={iconName} size={size} color={color} />;
             case "Lịch sử":
               return (
                 <Ionicons
-                  name={focused ? "home" : "home-outline"}
+                  name={focused ? "reader-outline" : "receipt-outline"}
                   size={size}
                   color={color}
                 />
@@ -85,18 +68,24 @@ const TabScreen = () => {
               iconName = focused ? "create" : "create-outline";
               return <Ionicons name={iconName} size={size} color={color} />;
             case "Thông tin":
-              iconName = "person-outline"
+              iconName = "person-outline";
               return <Ionicons name={iconName} size={size} color={color} />;
             case "Thông báo":
-                iconName = focused ? "notifications-circle-outline" : "notifications-outline"
-                return <Ionicons name={iconName} size={size} color={color} />;
+              iconName = focused
+                ? "notifications-circle-outline"
+                : "notifications-outline";
+              return <Ionicons name={iconName} size={size} color={color} />;
+            case "Nhắn tin":
+              iconName = focused
+              ? "chatbubble-ellipses-outline"
+                : "chatbubble-outline";
+              return <Ionicons name={iconName} size={size} color={color} />;
             default:
               return null;
           }
         },
       })}
     >
-      <Tab.Screen name="Đơn hàng" component={Donhang} />
       <Tab.Screen
         name="Lịch sử"
         component={LichSu}
@@ -120,7 +109,6 @@ const TabScreen = () => {
             return (
               <View
                 style={{
-                 
                   borderColor: "#C8FACD",
                   borderRadius: 50,
                   justifyContent: "center",
@@ -128,25 +116,23 @@ const TabScreen = () => {
                   top: -15,
                   borderWidth: 1,
                   paddingVertical: 5,
-                  paddingHorizontal:2,
-                  backgroundColor: { focused } ? "#3366FF":"#fff"
+                  paddingHorizontal: 2,
+                  backgroundColor: { focused } ? "#C8FACD" : "#C8FACD",
                 }}
               >
                 <Image
                   source={require("../assets/favicon-32x32.png")} // Đường dẫn đến hình ảnh
                   style={{ width: 37, height: 37 }} // Kích thước của hình ảnh
                 />
-             
               </View>
             );
           },
         }}
       />
-      
-      <Tab.Screen name="Bài Viết" component={DangBai} />
-      <Tab.Screen name="Thông tin" component={TrangCaNhan} />
-      <Tab.Screen name="Bài Viêt" component={PostStackNavigator} />
-     
+
+      <Tab.Screen name="Bài Viết" component={PostStackNavigator} />
+      <Tab.Screen name="Nhắn tin" component={ChatStack} />
+      <Tab.Screen name="Thông tin" component={TaiKhoanStack} />
     </Tab.Navigator>
   );
 };

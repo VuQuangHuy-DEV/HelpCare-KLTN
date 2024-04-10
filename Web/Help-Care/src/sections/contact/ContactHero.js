@@ -9,25 +9,16 @@ import { TextAnimate, MotionContainer, varFade } from '../../components/animate'
 
 const CONTACTS = [
   {
-    country: 'Bali',
-    address: '508 Bridle Avenue Newnan, GA 30263',
-    phoneNumber: '(239) 555-0108',
+    country: 'Việt Nam',
+    address: '12-NGuyễn Văn Bảo',
+    phoneNumber: '(84)984215',
   },
   {
-    country: 'London',
-    address: '508 Bridle Avenue Newnan, GA 30263',
-    phoneNumber: '(319) 555-0115',
+    country: 'Việt Nam',
+    address: 'DH CN HCM',
+    phoneNumber: '(84)984215',
   },
-  {
-    country: 'Prague',
-    address: '508 Bridle Avenue Newnan, GA 30263',
-    phoneNumber: '(252) 555-0126',
-  },
-  {
-    country: 'Moscow',
-    address: '508 Bridle Avenue Newnan, GA 30263',
-    phoneNumber: '(307) 555-0133',
-  },
+
 ];
 
 const StyledRoot = styled('div')(({ theme }) => ({
@@ -58,13 +49,13 @@ export default function ContactHero() {
     <StyledRoot>
       <Container component={MotionContainer}>
         <StyledContent>
-          <TextAnimate text="Where" sx={{ color: 'primary.main' }} variants={varFade().inRight} />
+          <TextAnimate text="Chúng" sx={{ color: 'primary.main' }} variants={varFade().inRight} />
           <br />
 
           <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.white' }}>
-            <TextAnimate text="to" />
-            <TextAnimate text="find" />
-            <TextAnimate text="us?" />
+            <TextAnimate text="tôi" />
+            <TextAnimate text="ở" />
+            <TextAnimate text="đâu ?" />
           </Stack>
 
           <Grid container spacing={5} sx={{ mt: 5, color: 'common.white' }}>

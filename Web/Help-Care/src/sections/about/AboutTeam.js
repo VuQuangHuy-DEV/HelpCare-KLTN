@@ -12,6 +12,7 @@ import Iconify from '../../components/iconify';
 import Carousel, { CarouselArrows } from '../../components/carousel';
 import { MotionViewport, varFade } from '../../components/animate';
 
+
 // ----------------------------------------------------------------------
 
 export default function AboutTeam() {
@@ -50,15 +51,10 @@ export default function AboutTeam() {
 
   return (
     <Container component={MotionViewport} sx={{ pb: 10, textAlign: 'center' }}>
-      <m.div variants={varFade().inDown}>
-        <Typography component="p" variant="overline" sx={{ color: 'text.disabled' }}>
-          Dream team
-        </Typography>
-      </m.div>
-
+ 
       <m.div variants={varFade().inUp}>
         <Typography variant="h2" sx={{ my: 3 }}>
-          Great team is the key
+          Đội ngũ chuyên nghiệp
         </Typography>
       </m.div>
 
@@ -70,8 +66,7 @@ export default function AboutTeam() {
             color: 'text.secondary',
           }}
         >
-          Minimal will provide you support if you have any problems, our support team will reply
-          within a day and we also have detailed documentation.
+          Với kinh nghiệm nhiều năm trong lĩnh vực giúp việc, và dọn dẹp chúng tôi có thể hỗ trợ bạn tốt nhất.
         </Typography>
       </m.div>
 
@@ -109,15 +104,7 @@ export default function AboutTeam() {
         </CarouselArrows>
       </Box>
 
-      <Button
-        variant="outlined"
-        color="inherit"
-        size="large"
-        endIcon={<Iconify icon="ic:round-arrow-right-alt" width={24} />}
-        sx={{ mx: 'auto' }}
-      >
-        View all team members
-      </Button>
+   
     </Container>
   );
 }

@@ -7,41 +7,18 @@ import {
   TextInput,
   Alert,
 } from "react-native";
-import { FontAwesome, AntDesign } from "@expo/vector-icons";
+import {  AntDesign } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_ROOT } from "../config-global";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+// storage
+import { saveData, getData} from "../helper/StoregeHelper"
+
 export default function DangNhap({ navigation }) {
   const API_LOGIN = API_ROOT + "auth/login/";
   const API_CURRENT_USER = API_ROOT + 'auth/user/info/'
-  //AsyncStorage
-
-  const saveDataToAsyncStorage = async (fieldValue) => {
-    try {
-      await AsyncStorage.setItem("TOKEN", fieldValue); // Lưu trường dữ liệu vào AsyncStorage
-      console.log("Data saved to AsyncStorage successfully!" +fieldValue);
-    } catch (error) {
-      console.error("Error saving data to AsyncStorage: ", error);
-    }
-  };
-  const getData = async (key) => {
-    try {
-      const value = await AsyncStorage.getItem(key);
-      if (value !== null) {
-        console.log('Data retrieved successfully: ', value);
-        return value;
-      } else {
-        console.log('No data found');
-        return null;
-      }
-    } catch (error) {
-      console.log('Error retrieving data: ', error);
-      return null;
-    }
-  };
-  /// default value
   const [phone_number, setPhone] = useState("0984218514");
   const [password, setPassword] = useState("123123");
 
@@ -53,7 +30,8 @@ export default function DangNhap({ navigation }) {
       })
       .then((response) => {
         // Nếu đăng nhập thành công thì chuyển vào trang chủ
-        toeken = saveDataToAsyncStorage(response.data.data.token);
+        token = saveData("TOKEN",response.data.data.token)
+        // toeken = saveDataToAsyncStorage(response.data.data.token);
         if (response.data.message === "Login successful") {
           console.log("Đăng nhập thành công");
           navigation.navigate("TrangChu");

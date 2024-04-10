@@ -12,18 +12,18 @@ const CARDS = [
   {
     icon: ' /assets/icons/home/ic_make_brand.svg',
     title: 'Uy tín',
-    description: 'Lorem ipsum dolor sit amet, consectetur',
+    description: 'Cam kết bằng hợp đồng với người lao động',
   },
   {
     icon: ' /assets/icons/home/ic_design.svg',
     title: 'Tận tậm',
     description:
-      'Lorem ipsum dolor sit amet, con',
+      'hỗ trợ hết mình, chỉ nhận tiền khi hoàn thành công việc',
   },
   {
     icon: ' /assets/icons/home/ic_development.svg',
-    title: 'Phát triển bền vững',
-    description: 'Lorem ipsum dolor sit amet, con',
+    title: 'Phát triển',
+    description: 'Với 10 năm kinh nghiệm làm việc hỗ trợ lâu dài ',
   },
 ];
 

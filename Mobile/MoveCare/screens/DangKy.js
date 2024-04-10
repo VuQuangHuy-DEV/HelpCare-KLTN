@@ -4,17 +4,25 @@ import { AntDesign, Feather } from "@expo/vector-icons";
 import { useState } from 'react';
 import axios from "axios";
 import { appName } from '../config-global';
+import { API_ROOT } from '../config-global';
+
+const endpointDangKy = API_ROOT + "auth/khachhang/register/"
 
 export default function DangKy({ navigation }) {
 
   const [phone_number, setPhone] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
+  const [message, setMessage] = useState("")
 
   const dangKy = () => {
     // Gọi API đăng nhập bằng axios
     axios
-      .post("https://vuquanghuydev.pythonanywhere.com/api/v1/auth/register/", {
+      .post(endpointDangKy, {
+        name:name,
+        email:email,
         phone_number: phone_number,
         password1: password1,
         password2: password2,
@@ -30,8 +38,7 @@ export default function DangKy({ navigation }) {
       .catch((error) => {
         if (error.response && error.response.data) {
           const { message } = error.response.data;
-          // console.error("Lỗi API:", error.response.data);
-          // Số điện thoại đã tồn tại
+
           if (message === "User already exists") {
             console.log(
               "Số điện thoại này đã được đăng ký. Vui lòng sử dụng số điện thoại khác."
@@ -107,6 +114,8 @@ export default function DangKy({ navigation }) {
                   width: "85%",
                 }}
                 placeholder="Họ và tên"
+                value={name}
+                onChangeText={(name) => setName(name)}
               />
               <View style={{
                 resizeMode: "center",
@@ -162,7 +171,9 @@ export default function DangKy({ navigation }) {
                   fontSize: 20,
                   width: "85%",
                 }}
-                placeholder="Địa chỉ"
+                placeholder="Email"
+                value={email}
+                onChangeText={(email)=>{setEmail(email)}}
               />
               <View style={{
                 resizeMode: "center",

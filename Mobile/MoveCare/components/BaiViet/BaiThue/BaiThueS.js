@@ -51,10 +51,9 @@ export default  function BaiThueS({navigation}) {
     <SafeAreaView style={{ flex: 1, padding: 10 }}>
       <Button onPress={handleCreate} title="Bài viết mới" color={PRIMARY.main} />
       <ScrollView>
-        {dsbaiDang.map((baidang, index) => (
-          <TouchableOpacity onPress={() => handleDetail(baidang.id)}>
-            <BaiThue
-              key={baidang.id}
+        {dsbaiDang.map((baidang) => (
+          <TouchableOpacity key={baidang.id} onPress={() => handleDetail(baidang.id)}>
+            <BaiThue            
               baidang={baidang}
               onDuyet={() => handleDuyet(baidang.id)}
               onHuy={() => handleHuy(baidang.id)}

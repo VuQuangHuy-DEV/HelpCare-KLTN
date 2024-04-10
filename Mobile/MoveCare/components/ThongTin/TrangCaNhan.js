@@ -1,74 +1,106 @@
-import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  SafeAreaView,
-} from "react-native";
-import { hotNumber } from "../../config-global";
+import React, { useState, useEffect, useCallback } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import { hotNumber, API_ROOT } from "../../config-global";
+import { getData } from "../../helper/StoregeHelper";
+
+const API_CURRENT_USER = API_ROOT + 'auth/khachhang/info/';
 
 const TrangCaNhan = ({ navigation }) => {
-  const username = "John Doe";
-  const accountInfo = "Thay đổi thông tin";
   const appVersion = "1.0.0";
+  const [currentUser, setCurrentUser] = useState(null);
 
-  const handleLogout = () => {
-    // Điều hướng trở lại màn hình Đăng nhập khi nhấn nút đăng xuất
+  const fetchData = useCallback(async () => {
+    const token = await getData("TOKEN");
+    console.log("token từ bro file " + token);
+    if (token !== null) {
+      await autoLogin(token);
+    }
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      fetchData();
+    });
+
+    return unsubscribe;
+  }, [navigation, fetchData]);
+
+  const autoLogin = async (token) => {
+    try {
+      const response = await axios.get(
+        API_CURRENT_USER,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setCurrentUser(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removeData = async (key) => {
+    try {
+      await AsyncStorage.removeItem(key);
+      console.log('Data removed successfully');
+      return true;
+    } catch (error) {
+      console.log('Error removing data: ', error);
+      return false;
+    }
+  };
+
+  const handleLogout = async () => {
     navigation.navigate("DangNhap");
+    await removeData("TOKEN");
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Image
-          source={{
-            uri: "https://cdn.sforum.vn/sforum/wp-content/uploads/2018/11/3-8.png",
-          }}
+          source={{ uri: "https://res.cloudinary.com/dtwy0ch1a/image/upload/v1712333902/avatarDefault.png" }}
           style={styles.avatar}
         />
         <View style={styles.userInfo}>
-          <Text style={styles.username}>{username}</Text>
-          <Text style={styles.customerType}>Khách hàng thường</Text>
+          <Text style={styles.username}>{currentUser ? currentUser.ho_ten : "Loading"}</Text>
+          <Text style={styles.customerType}>Mã Kh: {currentUser ? currentUser.ma_khach_hang : "Loading"}</Text>
+          <Text style={styles.customerType}>Điểm uy tín: 1000</Text>
         </View>
       </View>
-      <View style={styles.accountInfoContainer}>
-        <Text style={styles.accountInfo}>{accountInfo}</Text>
+
+      <TouchableOpacity onPress={() => navigation.navigate("ThongTinTaiKhoan")} style={styles.menuItem}>
+        <Text style={styles.menuItemText}>Thông tin</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate("DoiMatKhau")} style={styles.menuItem}>
+        <Text style={styles.menuItemText}>Đổi mật khẩu</Text>
+      </TouchableOpacity>
+
+      <View style={styles.footer}>
+        <MenuItem text="Cam kết của MOVE CARE" />
+        <MenuItem text="Điều khoản và dịch vụ sử dụng" />
+        <MenuItem text="Ghé thăm website" />
+        <MenuItem text={`Liên hệ: ${hotNumber}`} />
       </View>
+
+      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+        <Text style={styles.logoutButtonText}>Đăng Xuất</Text>
+      </TouchableOpacity>
 
       <View style={styles.appVersionContainer}>
         <Text style={styles.appVersion}>Phiên bản: {appVersion}</Text>
       </View>
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.footerItem}>
-          <Text style={styles.footerText}>Cam kết của MOVE CARE</Text>
-          <Image
-            source={require("../../assets/icon/arrow-right.svg")} // Đặt đường dẫn đúng của biểu tượng mũi tên
-            style={styles.arrowIcon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.footerItem}>
-          <Text style={styles.footerText}>Điều khoản và dịch vụ sử dụng</Text>
-          <Image
-            source={require("../../assets/icon/arrow-right.svg")} // Đặt đường dẫn đúng của biểu tượng mũi tên
-            style={styles.arrowIcon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.footerItem}>
-          <Text style={styles.footerText}>Liên hệ: {hotNumber}</Text>
-          <Image
-            source={require("../../assets/icon/arrow-right.svg")} // Đặt đường dẫn đúng của biểu tượng mũi tên
-            style={styles.arrowIcon}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-          <Text style={styles.logoutButtonText}>Đăng Xuất</Text>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 };
+
+const MenuItem = ({ text }) => (
+  <TouchableOpacity style={styles.menuItem}>
+    <Text style={styles.menuItemText}>{text}</Text>
+    <Image source={require("../../assets/icon.png")} style={styles.arrowIcon} />
+  </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -77,14 +109,13 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   header: {
-    width: "100%",
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
-    marginLeft: 10,
+    padding: 10,
     borderWidth: 1,
     borderColor: "gray",
-    padding: 10,
+    borderRadius: 10,
   },
   avatar: {
     width: 50,
@@ -96,26 +127,41 @@ const styles = StyleSheet.create({
   },
   username: {
     fontSize: 20,
+    fontWeight: "bold",
   },
   customerType: {
     fontSize: 16,
     marginTop: 5,
   },
-  accountInfoContainer: {
+  menuItem: {
     marginBottom: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#e5e5e5",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
   },
-  accountInfo: {
+  menuItemText: {
     fontSize: 16,
+    flex: 1,
+  },
+  footer: {
+    width: "100%",
+    borderTopWidth: 1,
+    borderTopColor: "lightgray",
+    paddingVertical: 10,
   },
   logoutButton: {
-    marginHorizontal:20,
-    width: "130",
+    margin: 10,
     backgroundColor: "#FF0000",
     padding: 10,
     borderRadius: 5,
-    marginBottom: 20,
-    marginTop:250
 
+    position: "absolute",
+    bottom: 35,
+
+    alignContent: "center",
     
   },
   logoutButtonText: {
@@ -128,24 +174,6 @@ const styles = StyleSheet.create({
   },
   appVersion: {
     fontSize: 12,
-  },
-  footer: {
-    width: "100%",
-    borderTopWidth: 1,
-    borderTopColor: "lightgray",
-    paddingVertical: 10,
-  },
-  footerItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: "lightgray",
-    paddingVertical: 10,
-  },
-  footerText: {
-    fontSize: 16,
   },
   arrowIcon: {
     width: 20,

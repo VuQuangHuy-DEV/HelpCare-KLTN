@@ -1,10 +1,10 @@
 // ----------------------------------------------------------------------
 
 export const role = [
-  'ux designer',
-  'full stack designer',
-  'backend developer',
-  'ux designer',
+  'Giúp việc',
+  'Thợ sửa ống nước',
+  'Đầu bếp',
+  'Bảo mẫu',
   'ux designer',
   'project manager',
   'leader',

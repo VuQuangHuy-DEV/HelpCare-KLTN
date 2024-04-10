@@ -1,10 +1,10 @@
 // ----------------------------------------------------------------------
 
 export const fullName = [
-  'Jayvion Simon',
-  'Lucian Obrien',
-  'Deja Brady',
-  'Harrison Stein',
+  'Đoàn Thế Long',
+'Vũ Quang Huy',
+  'Trần Thị A',
+  'Nguyễn Văn B',
   'Reece Chung',
   'Lainey Davidson',
   'Cristopher Cardenas',
@@ -44,7 +44,7 @@ export const fullName = [
 ];
 
 export const firstName = [
-  'Mossie',
+  'Đoàn',
   'David',
   'Ebba',
   'Chester',
@@ -87,7 +87,7 @@ export const firstName = [
 ];
 
 export const lastName = [
-  'Carroll',
+  'Long',
   'Simonis',
   'Yost',
   'Hand',

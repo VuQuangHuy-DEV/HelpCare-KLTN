@@ -43,21 +43,18 @@ export default function AboutHero() {
             variants={varFade().inRight}
           />
           " "
-           <TextAnimate
+          <TextAnimate
             text="tôi"
             sx={{
               color: 'primary.main',
             }}
             variants={varFade().inRight}
           />
-
           <br />
-
           <Stack spacing={2} display="inline-flex" direction="row" sx={{ color: 'common.white' }}>
             <TextAnimate text="là" />
             <TextAnimate text="ai?" />
           </Stack>
-
           <m.div variants={varFade().inRight}>
             <Typography
               variant="h4"
@@ -67,8 +64,8 @@ export default function AboutHero() {
                 fontWeight: 'fontWeightMedium',
               }}
             >
-              Let&apos;s wor&apos;k together and
-              <br /> make awesome site easily
+              Hãy cùng nhau làm việc và <br></br>
+              tạo ra những điều tuyệt vời
             </Typography>
           </m.div>
         </StyledContent>

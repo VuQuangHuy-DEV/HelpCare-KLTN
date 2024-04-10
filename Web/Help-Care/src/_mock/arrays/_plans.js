@@ -1,23 +1,28 @@
 // ----------------------------------------------------------------------
 
-const LICENSES = ['Standard', 'Standard Plus', 'Extended'];
+const LICENSES = ['Dịch vụ lẻ', 'Định kỳ', 'Kết nối từ bài viết'];
 
-export const _homePlans = [...Array(3)].map((_, index) => ({
-  license: LICENSES[index],
-  commons: ['One end products', '12 months updates', '6 months of support'],
-  options: [
-    'JavaScript version',
-    'TypeScript version',
-    'Design Resources',
-    'Commercial applications',
-  ],
-  icons: [
-    '/assets/icons/platforms/ic_sketch.svg',
-    '/assets/icons/platforms/ic_figma.svg',
-    '/assets/icons/platforms/ic_js.svg',
-    '/assets/icons/platforms/ic_ts.svg',
-  ],
-}));
+export const _homePlans = [
+  {
+    license: 'Dịch vụ lẻ',
+    commons: ['Nấu ăn', 'Trông trẻ', 'Dọn dẹp nhà cửa','hỗ trợ 24/7'], // Nội dung cho Dịch vụ lẻ
+    options: [],
+    icons: [],
+  },
+  {
+    license: 'Định kỳ',
+    commons: ['Dọn dẹp hàng tuần', 'Giúp việc theo tháng',], // Nội dung cho Định kỳ
+    options: [],
+    icons: [],
+  },
+  {
+    license: 'Kết nói từ bài viết',
+    commons: ['Khách hàng có thể tìm người giúp việc theo yêu cầu', 'Người lao động có thể tìm kiếm công việc phù hợp',], // Nội dung cho Kết nói từ bài viết
+    options: [],
+    icons: [],
+  },
+];
+
 
 export const _pricingPlans = [
   {

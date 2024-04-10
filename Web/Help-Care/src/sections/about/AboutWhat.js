@@ -13,6 +13,7 @@ import { _skills } from '../../_mock/arrays';
 import Image from '../../components/image';
 import Iconify from '../../components/iconify';
 import { MotionViewport, varFade } from '../../components/animate';
+import { nameApp } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
@@ -76,7 +77,7 @@ export default function AboutWhat() {
           <Grid item xs={12} md={6} lg={5}>
             <m.div variants={varFade().inRight}>
               <Typography variant="h2" sx={{ mb: 3 }}>
-                What is minimal?
+                {nameApp} là gì ?
               </Typography>
             </m.div>
 
@@ -86,30 +87,8 @@ export default function AboutWhat() {
                   color: theme.palette.mode === 'light' ? 'text.secondary' : 'common.white',
                 }}
               >
-                Our theme is the most advanced and user-friendly theme you will find on the market,
-                we have documentation and video to help set your site really easily, pre-installed
-                demos you can import in one click and everything from the theme options to page
-                content can be edited from the front-end. This is the theme you are looking for.
+                Hệ sinh thái, áp dụng công nghệ thông tin vào quản lý và kết nối mang lại tới giải pháp cho vấn đề bạn gặp phải liên quan đến các công việc hằng ngày. Bao gồm website và ứng dụng thân thiện. Chỉ vài thao tác đơn giản có thể đáp ứng mọi nhu cầu của bạn.
               </Typography>
-            </m.div>
-
-            <Box sx={{ my: 5 }}>
-              {_skills.map((progress) => (
-                <m.div key={progress.label} variants={varFade().inRight}>
-                  <ProgressItem progress={progress} />
-                </m.div>
-              ))}
-            </Box>
-
-            <m.div variants={varFade().inRight}>
-              <Button
-                variant="outlined"
-                color="inherit"
-                size="large"
-                endIcon={<Iconify icon="ic:round-arrow-right-alt" width={24} />}
-              >
-                Check out our work
-              </Button>
             </m.div>
           </Grid>
         </Grid>

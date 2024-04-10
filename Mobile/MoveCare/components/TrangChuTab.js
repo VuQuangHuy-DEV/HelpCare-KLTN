@@ -2,46 +2,62 @@ import React from "react";
 import {
   View,
   Text,
-  TextInput,
-  TouchableOpacity,
   StyleSheet,
   SafeAreaView,
   Dimensions,
-  Image,
+  ImageBackground,
+  FlatList,
+  TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native"; // Import thư viện điều hướng
 
 import Swiper from "react-native-swiper";
 
-import DangBai from "../components/DangBai";
 import { PRIMARY } from "../assets/style/style-global";
-imagesList = [
+
+const { width } = Dimensions.get("window");
+
+const imagesList = [
   "https://media-cdn-v2.laodong.vn/storage/newsportal/2023/8/26/1233821/Giai-Nhi-1--Nang-Tre.jpg",
   "https://file3.qdnd.vn/data/images/0/2023/05/03/vuhuyen/khanhphan.jpg",
   "https://file3.qdnd.vn/data/images/0/2023/05/03/vuhuyen/khanhphan.jpg",
-  "",
+  "https://file3.qdnd.vn/data/images/0/2023/05/03/vuhuyen/khanhphan.jpg",
+];
+
+const services = [
+  { id: 1, name: "Dọn dẹp hàng tuần", icon: require("../assets/avatar.png"), route: "DonDep" },
+  { id: 2, name: "Trông em bé", icon: require("../assets/avatar.png"), route: "TrongEmBe" },
+  { id: 3, name: "Giúp việc theo tháng", icon: require("../assets/avatar.png"), route: "GiupViecThang" },
+];
+
+const additionalServices = [
+  { id: 1, name: "Dọn dẹp nhà", icon: require("../assets/avatar.png"), route: "DonDepNha" },
+  { id: 2, name: "Vệ sinh máy giặt", icon: require("../assets/avatar.png"), route: "VeSinhMayGiat" },
+  { id: 3, name: "Nấu ăn", icon: require("../assets/avatar.png"), route: "NauAn" },
 ];
 
 const Slideshow = ({ images }) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.sliderContainer}>
       <Swiper
         style={styles.wrapper}
         showsButtons={true}
         autoplay={true}
-        autoplayTimeout={3}
+        autoplayTimeout={4}
         loop={true}
         paginationStyle={{ bottom: 10 }}
-        nextButton={<Text style={{ color: "white" }}>›</Text>}
-        prevButton={<Text style={{ color: "white" }}>‹</Text>}
+        nextButton={<Text style={styles.nextPrevButtonText}>›</Text>}
+        prevButton={<Text style={styles.nextPrevButtonText}>‹</Text>}
       >
         {images.map((image, index) => (
           <View style={styles.slide} key={index}>
-            <Image
-              source={{
-                uri: "https://cdn.sforum.vn/sforum/wp-content/uploads/2018/11/3-8.png",
-              }}
+            <ImageBackground
+              source={{ uri: image }}
               style={styles.image}
-            />
+              resizeMode="cover"
+            >
+              <Text style={styles.slideText}>Slide {index + 1}</Text>
+            </ImageBackground>
           </View>
         ))}
       </Swiper>
@@ -49,31 +65,61 @@ const Slideshow = ({ images }) => {
   );
 };
 
-const { width } = Dimensions.get("window");
+const ServiceItem = ({ item }) => {
+  const navigation = useNavigation(); // Lấy đối tượng điều hướng từ hook useNavigation
+  return (
+    <TouchableOpacity onPress={() => navigation.navigate(item.route)} style={styles.serviceItem}>
+      <ImageBackground
+        source={item.icon}
+        style={styles.serviceIcon}
+        resizeMode="cover"
+      >
+        <Text style={styles.serviceName}>{item.name}</Text>
+      </ImageBackground>
+    </TouchableOpacity>
+  );
+};
+
+const AdditionalServiceItem = ({ item }) => {
+  const navigation = useNavigation(); // Lấy đối tượng điều hướng từ hook useNavigation
+  return (
+    <TouchableOpacity onPress={() => navigation.navigate(item.route)} style={styles.additionalServiceItem}>
+      <ImageBackground
+        source={item.icon}
+        style={styles.additionalServiceIcon}
+        resizeMode="cover"
+      >
+        <Text style={styles.additionalServiceName}>{item.name}</Text>
+      </ImageBackground>
+    </TouchableOpacity>
+  );
+};
 
 const TrangChuTab = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerWelcome}>
-          {" "}
-          Xin Chào HUY , chúc bạn một ngày tốt lành
+        <Text style={styles.headerText}>
+          Xin chào HUY, chúc bạn một ngày tốt lành
         </Text>
       </View>
-      <Slideshow images={imagesList} styles={styles.slider} />
-      <Text>Giúp việc</Text>
-
-      {/* <View style={styles.post}>
-        <Text>Bài thue</Text>
-        <DangBai />
-      </View> */}
-
-      <TouchableOpacity style={styles.jobItem}>
-        <Text style={styles.jobTitle}>Công ty DEF tìm Kiến trúc sư</Text>
-        <Text style={styles.jobCompany}>Công ty DEF</Text>
-        <Text style={styles.jobLocation}>Đà Nẵng</Text>
-      </TouchableOpacity>
-      {/* Thêm các mục công việc khác */}
+      <Slideshow images={imagesList} />
+      <Text style={styles.categoryTitle}>Giúp việc</Text>
+      <FlatList
+        data={services}
+        renderItem={({ item }) => <ServiceItem item={item} />}
+        keyExtractor={(item) => item.id.toString()}
+        horizontal
+        contentContainerStyle={styles.servicesContainer}
+      />
+      <Text style={styles.additionalServicesTitle}>Dịch vụ thẻ</Text>
+      <FlatList
+        data={additionalServices}
+        renderItem={({ item }) => <AdditionalServiceItem item={item} />}
+        keyExtractor={(item) => item.id.toString()}
+        horizontal
+        contentContainerStyle={styles.additionalServicesContainer}
+      />
     </SafeAreaView>
   );
 };
@@ -84,63 +130,108 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     marginVertical: 5,
   },
-  searchInput: {
-    height: 40,
-    borderColor: "#2baf66",
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-  },
-  jobItem: {
-    backgroundColor: "#f0f0f0",
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
-  },
-  jobTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  jobCompany: {
-    fontSize: 16,
-    marginBottom: 3,
-  },
-  jobLocation: {
-    fontSize: 14,
-  },
-  post: {
-    width: "auto",
-    height: 500,
-  },
   header: {
     backgroundColor: PRIMARY.main,
-    color: "#fff",
     height: 50,
-    display: "flex",
     justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
   },
-  headerWelcome: {
-    color: "#fff",
+  headerText: {
+    color: "#ffffff",
     fontSize: 18,
   },
+  categoryTitle: {
+    marginTop: 10,
+    marginLeft: 10,
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  additionalServicesTitle: {
+    marginTop: 20,
+    marginLeft: 10,
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  sliderContainer: {
+    height: 200, // Chiều cao cố định của slider
+  },
+  wrapper: {},
   slide: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    
-    height: 100,
   },
   image: {
     width: width,
-    height: 100,
-    flex: 1,
-  },
-  slider: {
-    width: 700,
     height: 200,
-    backgroundColor: "blue",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  slideText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  nextPrevButtonText: {
+    color: "#ffffff",
+    fontSize: 50,
+  },
+  servicesContainer: {
+    paddingHorizontal: 10,
+  },
+  additionalServicesContainer: {
+    paddingHorizontal: 10,
+  },
+  serviceItem: {
+    width: 100,
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 5,
+    borderWidth: 1,
+    borderColor: PRIMARY.main,
+    borderRadius: 50,
+    backgroundColor: "#fff",
+    elevation: 5,
+  },
+  additionalServiceItem: {
+    width: 100,
+    height: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 5,
+    borderWidth: 1,
+    borderColor: PRIMARY.main,
+    borderRadius: 50,
+    backgroundColor: "#fff",
+    elevation: 5,
+  },
+  serviceIcon: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  additionalServiceIcon: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  serviceName: {
+    color: "white",
+    fontSize: 12,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  additionalServiceName: {
+    color: "white",
+    fontSize: 12,
+    textAlign: "center",
+    fontWeight: "bold",
   },
 });
 

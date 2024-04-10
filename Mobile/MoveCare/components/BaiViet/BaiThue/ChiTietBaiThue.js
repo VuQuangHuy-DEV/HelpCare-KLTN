@@ -1,20 +1,24 @@
 import React from "react";
 
 import { useState, useEffect } from "react";
-import { ScrollView, View, Text, Image, StyleSheet } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Button,
+} from "react-native";
 //config
 import { API_ROOT } from "../../../config-global";
 //axios
 import axios from "axios";
 
-
-
 export default ChiTietBaiThue = ({ route }) => {
   // Lấy dữ liệu bài đăng từ route
   const { idpost } = route.params;
 
-  const API_CHI_TIET =
-  API_ROOT + `rental/post/detail/${idpost}/`;
+  const API_CHI_TIET = API_ROOT + `rental/post/detail/${idpost}/`;
   const [post, setPost] = useState();
 
   useEffect(() => {
@@ -22,7 +26,6 @@ export default ChiTietBaiThue = ({ route }) => {
       try {
         const response = await axios.get(API_CHI_TIET);
         setPost(response.data.data);
-      
       } catch (error) {
         console.log(error);
       }
@@ -39,7 +42,7 @@ export default ChiTietBaiThue = ({ route }) => {
         style={styles.image}
       />
       <View style={styles.content}>
-      <Text style={styles.title}>{idpost}</Text>
+        <Text style={styles.title}>{idpost}</Text>
         <Text style={styles.title}>{post ? post.tieu_de : "Loading..."}</Text>
         <Text style={styles.description}>
           {post ? post.chi_tiet : "Loading..."}
@@ -56,9 +59,8 @@ export default ChiTietBaiThue = ({ route }) => {
         <Text style={styles.date}>
           Posted on: {post ? post.ngay_khoi_tao : "Loading..."}
         </Text>
+        <Button title="Thuê" variant="text" onPress={()=>{}} />
 
-
-        
       </View>
     </ScrollView>
   );
@@ -100,8 +102,3 @@ const styles = StyleSheet.create({
     color: "#666",
   },
 });
-
-
-
-
-

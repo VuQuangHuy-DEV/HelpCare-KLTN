@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
@@ -12,10 +11,6 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 export default function TaiKhoan({ navigation }) {
-
-
-  
-
   const handleLogout = () => {
     // Điều hướng trở lại màn hình Đăng nhập khi nhấn nút đăng xuất
     navigation.navigate("DangNhap");
@@ -25,6 +20,7 @@ export default function TaiKhoan({ navigation }) {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
+  
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -66,13 +62,7 @@ export default function TaiKhoan({ navigation }) {
           <View style={styles.formGroup}>
             <Text style={styles.formLabel}>Địa chỉ</Text>
             <TextInput
-              style={{
-                height: 90,
-                borderColor: "gray",
-                borderWidth: 3,
-                borderRadius: 1,
-                padding: 10,
-              }}
+              style={styles.multilineInput}
               value={address}
               onChangeText={setAddress}
               multiline={true}
@@ -80,14 +70,12 @@ export default function TaiKhoan({ navigation }) {
             />
           </View>
           <View style={styles.formGroup}>
-            <TouchableOpacity style={styles.formButton}>
-              <Text style={styles.formButtonText}>Lưu thông tin</Text>
+            <TouchableOpacity style={styles.saveButton}>
+              <Text style={styles.saveButtonText}>Lưu thông tin</Text>
             </TouchableOpacity>
             <View style={{ marginVertical: 10 }}></View>
-            <TouchableOpacity style={styles.formButton} 
-                              onPress={handleLogout}    
-                          >
-              <Text style={styles.formButtonText}>Đăng xuất</Text>
+            <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+              <Text style={styles.logoutButtonText}>Đăng xuất</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -103,7 +91,7 @@ const styles = StyleSheet.create({
   },
   header: {
     height: 50,
-    backgroundColor: "white",
+    backgroundColor: "lightgreen",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -112,6 +100,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "black",
+    marginLeft: 20,
   },
   headerButton: {
     padding: 10,
@@ -136,14 +125,32 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
   },
-  formButton: {
+  multilineInput: {
+    height: 90,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+  },
+  saveButton: {
     height: 40,
-    backgroundColor: "blue",
+    backgroundColor: "green",
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
   },
-  formButtonText: {
+  saveButtonText: {
+    color: "white",
+    fontSize: 16,
+  },
+  logoutButton: {
+    height: 40,
+    backgroundColor: "red",
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  logoutButtonText: {
     color: "white",
     fontSize: 16,
   },

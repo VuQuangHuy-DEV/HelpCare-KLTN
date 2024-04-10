@@ -3,7 +3,7 @@ import { randomInArray } from '../utils';
 
 // ----------------------------------------------------------------------
 
-export const _carouselsMembers = [...Array(6)].map((_, index) => ({
+export const _carouselsMembers = [...Array(4)].map((_, index) => ({
   id: _mock.id(index),
   name: _mock.name.fullName(index),
   role: _mock.role(index),

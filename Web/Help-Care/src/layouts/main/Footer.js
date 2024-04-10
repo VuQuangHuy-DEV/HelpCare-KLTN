@@ -10,30 +10,31 @@ import { _socials } from '../../_mock/arrays';
 // components
 import Logo from '../../components/logo';
 import Iconify from '../../components/iconify';
+import { nameApp } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
 const LINKS = [
   {
-    headline: 'Minimal',
+    headline: 'Move Care',
     children: [
-      { name: 'About us', href: PATH_PAGE.about },
-      { name: 'Contact us', href: PATH_PAGE.contact },
-      { name: 'FAQs', href: PATH_PAGE.faqs },
+      { name: 'Về chúng tôi', href: PATH_PAGE.about },
+      { name: 'Liên hệ', href: PATH_PAGE.contact },
+      
     ],
   },
   {
-    headline: 'Legal',
+    headline: 'Chính sách',
     children: [
-      { name: 'Terms and Condition', href: '#' },
-      { name: 'Privacy Policy', href: '#' },
+      { name: 'Luật và điều kiện', href: '#' },
+      { name: 'Chính sách bảo mật', href: '#' },
     ],
   },
   {
-    headline: 'Contact',
+    headline: 'Liên hệ',
     children: [
-      { name: 'support@minimals.cc', href: '#' },
-      { name: 'Los Angeles, 359  Hidden Valley Road', href: '#' },
+      { name: 'movecare@gmail.com', href: '#' },
+      { name: '12-Nguyễn Văn Bảo', href: '#' },
     ],
   },
 ];
@@ -97,8 +98,7 @@ export default function Footer() {
 
           <Grid item xs={8} md={3}>
             <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-              The starting point for your next project with Minimal UI Kit, built on the newest
-              version of Material-UI ©, ready to be customized to your style.
+            Đến với {nameApp} tất cả vì bạn
             </Typography>
 
             <Stack
@@ -160,7 +160,7 @@ export default function Footer() {
             textAlign: { xs: 'center', md: 'left' },
           }}
         >
-          © 2021. All rights reserved
+          © 2024. Move-Care
         </Typography>
       </Container>
     </Box>

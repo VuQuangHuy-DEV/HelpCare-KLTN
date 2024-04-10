@@ -1,4 +1,5 @@
 import TabScreen from "../components/tabScreen";
+import { SafeAreaView,StatusBar } from "react-native";
 
 
 
@@ -8,6 +9,7 @@ const TrangChu = () => {
   
   return (
     <>
+    <StatusBar/>
     <TabScreen/>
     </>
   );

@@ -44,7 +44,6 @@ export default function HomePricingPlans() {
 function Description() {
   return (
     <Stack spacing={3} sx={{ mb: 10, textAlign: 'center' }}>
-     
       <m.div variants={varFade().inDown}>
         <Typography variant="h2">
           Chọn dịch vụ tốt nhất <br /> cho bạn cùng gia đình
@@ -53,7 +52,7 @@ function Description() {
 
       <m.div variants={varFade().inDown}>
         <Typography sx={{ color: 'text.secondary' }}>
-          Choose the perfect plan for your needs. Always flexible to grow
+          Chọn kế hoạch hoàn hảo cho nhu cầu của bạn. Linh hoạt cho mọi nhu cầu
         </Typography>
       </m.div>
     </Stack>
@@ -62,25 +61,17 @@ function Description() {
 
 // ----------------------------------------------------------------------
 
-
-
-
-
 function Content() {
   const isDesktop = useResponsive('up', 'md');
   const [currentTab, setCurrentTab] = useState('Standard');
 
-  useEffect(() => {
-  }, [isDesktop]); 
-
-
-
+  useEffect(() => {}, [isDesktop]);
 
   const desktopList = (
     <Box
       display="grid"
       gridTemplateColumns="repeat(3, 1fr)"
-      sx={{borderRadius: 2, border: (theme) => `dashed 1px ${theme.palette.divider}` }}
+      sx={{ borderRadius: 2, border: (theme) => `dashed 1px ${theme.palette.divider}` }}
     >
       {_homePlans.map((plan) => (
         <m.div key={plan.license} variants={varFade().in}>
@@ -119,10 +110,12 @@ function Content() {
       </Box>
     </>
   );
-  {console.log(isDesktop)}
+  {
+    console.log(isDesktop);
+  }
   return (
     <>
-      {!isDesktop ? mobileList: desktopList}
+      {!isDesktop ? mobileList : desktopList}
 
       <m.div variants={varFade().in}>
         <Box
@@ -140,7 +133,7 @@ function Content() {
 
           <m.div variants={varFade().inDown}>
             <Typography sx={{ mt: 2, mb: 5, color: 'text.secondary' }}>
-              Please describe your case to receive the most accurate advice.
+              Hãy mô tả trường hợp của bạn để nhận được sự tư vấn chính xác nhất.{' '}
             </Typography>
           </m.div>
 
@@ -182,9 +175,9 @@ PlanCard.propTypes = {
 function PlanCard({ plan, sx, ...other }) {
   const { license, commons, options, icons } = plan;
 
-  const standard = license === 'Standard';
+  const standard = license === 'Dịch vụ lẻ';
 
-  const plus = license === 'Standard Plus';
+  const plus = license === 'Định kỳ';
 
   return (
     <Stack
@@ -201,10 +194,6 @@ function PlanCard({ plan, sx, ...other }) {
       {...other}
     >
       <Stack spacing={2}>
-        <Typography variant="overline" component="div" sx={{ color: 'text.disabled' }}>
-          License
-        </Typography>
-
         <Box sx={{ position: 'relative' }}>
           <Typography variant="h4">{license}</Typography>
           <Box
@@ -265,19 +254,6 @@ function PlanCard({ plan, sx, ...other }) {
             </Stack>
           );
         })}
-      </Stack>
-
-      <Stack alignItems="flex-end">
-        <Button
-          color="inherit"
-          size="small"
-          target="_blank"
-          rel="noopener"
-          href={PATH_MINIMAL_ON_STORE}
-          endIcon={<Iconify icon="eva:chevron-right-fill" />}
-        >
-          Learn more
-        </Button>
       </Stack>
     </Stack>
   );
