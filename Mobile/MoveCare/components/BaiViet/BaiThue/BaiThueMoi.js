@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { View,Text, TextInput, Button, Alert, StyleSheet,TouchableOpacity } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+// import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
-import { DatePickerInput } from "react-native-paper-dates";
 import { getData } from "../../../helper/StoregeHelper";
 
 //config
@@ -70,14 +69,15 @@ const BaiThueMoi = () => {
       <View style={styles.datePickerContainer}>
         <Button title="Chọn ngày" onPress={() => setShowDatePicker(true)} />
         {showDatePicker && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={thoiGian}
-            mode="date"
-            is24Hour={true}
-            display="default"
-            onChange={onChangeDate}
-          />
+          // <DateTimePicker
+          //   testID="dateTimePicker"
+          //   value={thoiGian}
+          //   mode="date"
+          //   is24Hour={true}
+          //   display="default"
+          //   onChange={onChangeDate}
+          // />
+          <View/>
         )}
       </View>
 

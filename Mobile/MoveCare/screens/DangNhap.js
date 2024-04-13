@@ -17,7 +17,7 @@ import { API_ROOT } from "../config-global";
 import { saveData, getData} from "../helper/StoregeHelper"
 
 export default function DangNhap({ navigation }) {
-  const API_LOGIN = API_ROOT + "auth/login/";
+  const API_LOGIN = API_ROOT + "auth/khachhang/login/";
   const API_CURRENT_USER = API_ROOT + 'auth/khachhang/info/'
   const [phone_number, setPhone] = useState("0984218514");
   const [password, setPassword] = useState("123123");
