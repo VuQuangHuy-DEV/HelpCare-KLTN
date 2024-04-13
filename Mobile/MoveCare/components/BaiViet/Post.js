@@ -11,24 +11,25 @@ import ChiTietBaiDang from "./BaiThue/ChiTietBaiThue";
 
 // Bài tìm việc
 import BaiTimViecS from './BaiTimViec/BaiTimViecS';
+import BaiTimViecMoi from './BaiTimViec/BaiTimViecMoi';
 
 
 const Post = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Nhu cầu của bạn là gì?</Text>
+      <Text style={styles.title}>Chọn loại bài viết bạn muốn xem?</Text>
       <View style={styles.contentContainer}>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={()=>{
             navigation.navigate("List")
           }}>
             <Ionicons name="person" size={24} color="black" />
-            <Text style={styles.buttonText}>Tôi muốn thuê giúp việc</Text>
+            <Text style={styles.buttonText}>Thuê  giúp việc</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
           onPress={()=>{navigation.navigate("BaiTimViecS")}}>
             <Ionicons name="briefcase" size={24} color="black" />
-            <Text style={styles.buttonText}>Tôi muốn tìm việc</Text>
+            <Text style={styles.buttonText}>Tìm việc làm</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -91,6 +92,8 @@ const PostStackNavigator = () => {
       <Stack.Screen name="Create" component={BaiThueMoi} options={{headerTitle: ''}} />
       {/* Bài tìm việc */}
       <Stack.Screen name="BaiTimViecS" component={BaiTimViecS} options={{headerTitle: ''}} />
+      <Stack.Screen name="BaiTimViecMoi" component={BaiTimViecMoi} options={{headerTitle: ''}} />
+
 
     </Stack.Navigator>
   );

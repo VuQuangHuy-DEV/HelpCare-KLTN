@@ -88,9 +88,9 @@ export default function UserProfilePage() {
         <CustomBreadcrumbs
           heading="Profile"
           links={[
-            { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.root },
-            { name: user?.displayName },
+            { name: 'Bảng ', href: PATH_DASHBOARD.root },
+            { name: 'Người dùng', href: PATH_DASHBOARD.user.root },
+            { name: user?.ho_ten },
           ]}
         />
         <Card

@@ -23,7 +23,8 @@ const TabScreen = () => {
       initialRouteName="Trang Chủ"
       tabBarOptions={{
         activeTintColor: "#2baf66",
-        inactiveTintColor: "gray",
+    
+      
       }}
       options={{
         headerLeft: null, // Ngăn chặn nút quay trở lại ở màn hình chính

@@ -42,9 +42,7 @@ const navConfig = [
     subheader: 'general',
     items: [
      
-      { title: 'ecommerce', path: PATH_DASHBOARD.general.ecommerce, icon: ICONS.ecommerce },
-      { title: 'banking', path: PATH_DASHBOARD.general.banking, icon: ICONS.banking },
-      { title: 'booking', path: PATH_DASHBOARD.general.booking, icon: ICONS.booking },
+      { title: 'Thống kê', path: PATH_DASHBOARD.general.ecommerce, icon: ICONS.ecommerce },
     ],
   },
 
@@ -87,7 +85,7 @@ const navConfig = [
 
       // BLOG thuê
       {
-        title: 'blog thuê',
+        title: 'Bài thuê',
         path: PATH_DASHBOARD.blog.root,
         icon: ICONS.blog,
         children: [
@@ -98,7 +96,7 @@ const navConfig = [
       },
       // BLOG tìm
       {
-        title: 'blog tìm',
+        title: 'Bài tìm việc',
         path: PATH_DASHBOARD.blog.root,
         icon: ICONS.blog,
         children: [
@@ -127,12 +125,7 @@ const navConfig = [
   {
     subheader: 'app',
     items: [
-      {
-        title: 'mail',
-        path: PATH_DASHBOARD.mail.root,
-        icon: ICONS.mail,
-        info: <Label color="error">+32</Label>,
-      },
+     
       {
         title: 'chat',
         path: PATH_DASHBOARD.chat.root,

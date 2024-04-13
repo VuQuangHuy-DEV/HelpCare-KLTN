@@ -9,8 +9,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native"; // Import thư viện điều hướng
-
+import { useNavigation } from "@react-navigation/native";
 import Swiper from "react-native-swiper";
 
 import { PRIMARY } from "../assets/style/style-global";
@@ -18,22 +17,22 @@ import { PRIMARY } from "../assets/style/style-global";
 const { width } = Dimensions.get("window");
 
 const imagesList = [
-  "https://media-cdn-v2.laodong.vn/storage/newsportal/2023/8/26/1233821/Giai-Nhi-1--Nang-Tre.jpg",
+  "https://file3.qdnd.vn/data/images/0/2023/05/03/vuhuyen/khanhphan.jpg",
   "https://file3.qdnd.vn/data/images/0/2023/05/03/vuhuyen/khanhphan.jpg",
   "https://file3.qdnd.vn/data/images/0/2023/05/03/vuhuyen/khanhphan.jpg",
   "https://file3.qdnd.vn/data/images/0/2023/05/03/vuhuyen/khanhphan.jpg",
 ];
 
 const services = [
-  { id: 1, name: "Dọn dẹp hàng tuần", icon: require("../assets/avatar.png"), route: "DonDep" },
-  { id: 2, name: "Trông em bé", icon: require("../assets/avatar.png"), route: "TrongEmBe" },
-  { id: 3, name: "Giúp việc theo tháng", icon: require("../assets/avatar.png"), route: "GiupViecThang" },
+  { id: 1, name: "Dọn dẹp định ki ", icon: require("../assets/imgs/donnha-icon.png"), route: "DonDep" },
+  { id: 2, name: "Trông em bé", icon: require("../assets/imgs/trongtre-icon.png"), route: "TrongEmBe" },
+  { id: 3, name: "Giúp việc theo tháng", icon: require("../assets/imgs/repeat-icon.png"), route: "GiupViecThang" },
 ];
 
 const additionalServices = [
-  { id: 1, name: "Dọn dẹp nhà", icon: require("../assets/avatar.png"), route: "DonDepNha" },
-  { id: 2, name: "Vệ sinh máy giặt", icon: require("../assets/avatar.png"), route: "VeSinhMayGiat" },
-  { id: 3, name: "Nấu ăn", icon: require("../assets/avatar.png"), route: "NauAn" },
+  { id: 1, name: "Dọn dẹp nhà", icon: require("../assets/imgs/donnha-icon.png"), route: "DonDepNha" },
+  { id: 2, name: "Vệ sinh máy giặt", icon: require("../assets/imgs/maygiat-icon.png"), route: "VeSinhMayGiat" },
+  { id: 3, name: "Nấu ăn", icon: require("../assets/imgs/nauan-icon.png"), route: "NauAn" },
 ];
 
 const Slideshow = ({ images }) => {
@@ -56,7 +55,7 @@ const Slideshow = ({ images }) => {
               style={styles.image}
               resizeMode="cover"
             >
-              <Text style={styles.slideText}>Slide {index + 1}</Text>
+              <Text style={styles.slideText}></Text>
             </ImageBackground>
           </View>
         ))}
@@ -66,31 +65,33 @@ const Slideshow = ({ images }) => {
 };
 
 const ServiceItem = ({ item }) => {
-  const navigation = useNavigation(); // Lấy đối tượng điều hướng từ hook useNavigation
+  const navigation = useNavigation();
   return (
     <TouchableOpacity onPress={() => navigation.navigate(item.route)} style={styles.serviceItem}>
-      <ImageBackground
-        source={item.icon}
-        style={styles.serviceIcon}
-        resizeMode="cover"
-      >
+      <View style={styles.serviceIconContainer}>
+        <ImageBackground
+          source={item.icon}
+          style={styles.serviceIcon}
+          resizeMode="cover"
+        />
         <Text style={styles.serviceName}>{item.name}</Text>
-      </ImageBackground>
+      </View>
     </TouchableOpacity>
   );
 };
 
 const AdditionalServiceItem = ({ item }) => {
-  const navigation = useNavigation(); // Lấy đối tượng điều hướng từ hook useNavigation
+  const navigation = useNavigation();
   return (
     <TouchableOpacity onPress={() => navigation.navigate(item.route)} style={styles.additionalServiceItem}>
-      <ImageBackground
-        source={item.icon}
-        style={styles.additionalServiceIcon}
-        resizeMode="cover"
-      >
+      <View style={styles.additionalServiceIconContainer}>
+        <ImageBackground
+          source={item.icon}
+          style={styles.additionalServiceIcon}
+          resizeMode="cover"
+        />
         <Text style={styles.additionalServiceName}>{item.name}</Text>
-      </ImageBackground>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -100,11 +101,11 @@ const TrangChuTab = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>
-          Xin chào HUY, chúc bạn một ngày tốt lành
+          Xin chào, chúc bạn một ngày tốt lành
         </Text>
       </View>
       <Slideshow images={imagesList} />
-      <Text style={styles.categoryTitle}>Giúp việc</Text>
+      <Text style={styles.categoryTitle}>Định kỳ</Text>
       <FlatList
         data={services}
         renderItem={({ item }) => <ServiceItem item={item} />}
@@ -112,7 +113,7 @@ const TrangChuTab = () => {
         horizontal
         contentContainerStyle={styles.servicesContainer}
       />
-      <Text style={styles.additionalServicesTitle}>Dịch vụ thẻ</Text>
+      <Text style={styles.additionalServicesTitle}>Dịch vụ lẻ</Text>
       <FlatList
         data={additionalServices}
         renderItem={({ item }) => <AdditionalServiceItem item={item} />}
@@ -135,11 +136,12 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 8,
   },
   headerText: {
     color: "#ffffff",
     fontSize: 18,
+    fontWeight: "bold",
   },
   categoryTitle: {
     marginTop: 10,
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   sliderContainer: {
-    height: 200, // Chiều cao cố định của slider
+    height: 200,
   },
   wrapper: {},
   slide: {
@@ -168,67 +170,74 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  slideText: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
+
   nextPrevButtonText: {
     color: "#ffffff",
     fontSize: 50,
   },
   servicesContainer: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
   },
   additionalServicesContainer: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
+    color: PRIMARY.main,
   },
   serviceItem: {
-    width: 100,
-    height: 100,
+    width: 115,
+    height: 115,
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 5,
     borderWidth: 1,
     borderColor: PRIMARY.main,
-    borderRadius: 50,
-    backgroundColor: "#fff",
+    borderRadius: 60,
     elevation: 5,
   },
   additionalServiceItem: {
-    width: 100,
-    height: 100,
+    width: 115,
+    height: 115,
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 5,
     borderWidth: 1,
     borderColor: PRIMARY.main,
-    borderRadius: 50,
-    backgroundColor: "#fff",
+    borderRadius: 60,
     elevation: 5,
   },
-  serviceIcon: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+  serviceIconContainer: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  additionalServiceIconContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  serviceIcon: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    opacity: 0.8, // Độ mờ
   },
   additionalServiceIcon: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
     justifyContent: "center",
     alignItems: "center",
+    opacity: 0.8, // Độ mờ
   },
   serviceName: {
-    color: "white",
+    color: PRIMARY.main,
     fontSize: 12,
     textAlign: "center",
     fontWeight: "bold",
   },
   additionalServiceName: {
-    color: "white",
+    color: PRIMARY.main,
     fontSize: 12,
     textAlign: "center",
     fontWeight: "bold",

@@ -35,8 +35,8 @@ export default function Login() {
         <Stack direction="row" spacing={0.5}>
           <Typography variant="body2">Người dùng mới ? </Typography>
 
-          <Link component={NextLink} href={PATH_AUTH.register} variant="subtitle2">
-            Tạo tài khoản
+          <Link component={NextLink} href={"#"} variant="subtitle2">
+            Liên hệ quản lí của bạn
           </Link>
         </Stack>
         {/* 
@@ -51,7 +51,7 @@ export default function Login() {
       </Stack>
 
       <Alert severity="info" sx={{ mb: 3 }}>
-        Use email : <strong>demo@minimals.cc</strong> / password :<strong> demo1234</strong>
+        Use email : <strong>admin@admin</strong> / password :<strong>123456</strong>
       </Alert>
 
       <AuthLoginForm />

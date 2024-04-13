@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types';
 import { createContext, useEffect, useReducer, useCallback, useMemo } from 'react';
 // utils
-import axios from '../utils/axios';
+// import axios from '../utils/axios';
 import localStorageAvailable from '../utils/localStorageAvailable';
 //
 import { isValidToken, setSession } from './utils';
+
+import axios from 'axios';
+import { API_ROOT } from 'src/config-global';
+
+const api_login = API_ROOT + 'auth/login/'
+const api_current_user = API_ROOT + 'auth/khachhang/info/'
 
 // ----------------------------------------------------------------------
 
@@ -75,9 +81,13 @@ export function AuthProvider({ children }) {
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
-        const response = await axios.get('/api/account/my-account');
+        const response = await axios.get(api_current_user, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          }
+        })
 
-        const { user } = response.data;
+        const  user  = response.data.data;
 
         dispatch({
           type: 'INITIAL',
@@ -113,11 +123,13 @@ export function AuthProvider({ children }) {
 
   // LOGIN
   const login = useCallback(async (email, password) => {
-    const response = await axios.post('/api/account/login', {
-      email,
-      password,
+    const response = await axios.post(api_login, {
+      phone_number:email,
+      password: password,
     });
-    const { accessToken, user } = response.data;
+    console.log(response.data.data)
+    const user= response.data.data
+    const accessToken = response.data.data.token
 
     setSession(accessToken);
 

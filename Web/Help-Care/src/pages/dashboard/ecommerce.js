@@ -20,12 +20,10 @@ import { useSettingsContext } from '../../components/settings';
 import {
   EcommerceNewProducts,
   EcommerceYearlySales,
-  EcommerceBestSalesman,
+  
   EcommerceSaleByGender,
   EcommerceWidgetSummary,
-  EcommerceSalesOverview,
-  EcommerceLatestProducts,
-  EcommerceCurrentBalance,
+
 } from '../../sections/@dashboard/general/e-commerce';
 
 // assets
@@ -127,35 +125,15 @@ export default function GeneralEcommercePage() {
             />
           </Grid>
 
-          <Grid item xs={12} md={6} lg={8}>
-            <EcommerceSalesOverview title="Sales Overview" data={_ecommerceSalesOverview} />
-          </Grid>
+         
 
-          <Grid item xs={12} md={6} lg={4}>
-            <EcommerceCurrentBalance
-              title="Current Balance"
-              currentBalance={187650}
-              sentAmount={25500}
-            />
-          </Grid>
+    
 
           <Grid item xs={12} md={6} lg={8}>
-            <EcommerceBestSalesman
-              title="Best Salesman"
-              tableData={_ecommerceBestSalesman}
-              tableLabels={[
-                { id: 'seller', label: 'Seller' },
-                { id: 'product', label: 'Product' },
-                { id: 'country', label: 'Country', align: 'center' },
-                { id: 'total', label: 'Total' },
-                { id: 'rank', label: 'Rank', align: 'right' },
-              ]}
-            />
+          
           </Grid>
 
-          <Grid item xs={12} md={6} lg={4}>
-            <EcommerceLatestProducts title="Latest Products" list={_ecommerceLatestProducts} />
-          </Grid>
+        
         </Grid>
       </Container>
     </>

@@ -59,7 +59,7 @@ const TrangCaNhan = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Image
-          source={{ uri: "https://res.cloudinary.com/dtwy0ch1a/image/upload/v1712333902/avatarDefault.png" }}
+          source={{ uri: currentUser ?currentUser.anh_dai_dien: null}}
           style={styles.avatar}
         />
         <View style={styles.userInfo}>

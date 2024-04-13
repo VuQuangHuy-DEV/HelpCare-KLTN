@@ -11,14 +11,14 @@ import {  AntDesign } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_ROOT } from "../config-global";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 // storage
 import { saveData, getData} from "../helper/StoregeHelper"
 
 export default function DangNhap({ navigation }) {
   const API_LOGIN = API_ROOT + "auth/login/";
-  const API_CURRENT_USER = API_ROOT + 'auth/user/info/'
+  const API_CURRENT_USER = API_ROOT + 'auth/khachhang/info/'
   const [phone_number, setPhone] = useState("0984218514");
   const [password, setPassword] = useState("123123");
 
@@ -31,6 +31,7 @@ export default function DangNhap({ navigation }) {
       .then((response) => {
         // Nếu đăng nhập thành công thì chuyển vào trang chủ
         token = saveData("TOKEN",response.data.data.token)
+        saveData("NAME",response.data.data.ho_ten)
         // toeken = saveDataToAsyncStorage(response.data.data.token);
         if (response.data.message === "Login successful") {
           console.log("Đăng nhập thành công");

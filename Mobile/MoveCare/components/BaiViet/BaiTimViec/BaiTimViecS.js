@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Button, ScrollView, View,SafeAreaView } from "react-native";
+import { Button, ScrollView, View, SafeAreaView } from "react-native";
 import { PRIMARY } from "../../../assets/style/style-global";
 
-
 import axios from "axios";
-import BaiTimViec from "./BaiTimViec"
+import BaiTimViec from "./BaiTimViec";
 
 //config
 import { API_ROOT } from "../../../config-global";
@@ -12,11 +11,7 @@ import { TouchableOpacity } from "react-native";
 
 const API_LIST_BAI = API_ROOT + "rental/posts/";
 
-export default function BaiTimViecS({navigation}) {
-
-
-
-
+export default function BaiTimViecS({ navigation }) {
   const [dsbaiDang, setDSBaiDang] = useState([]);
 
   useEffect(() => {
@@ -42,19 +37,22 @@ export default function BaiTimViecS({navigation}) {
     console.log("Đã hủy bài đăng có ID:", id);
   };
   const handleCreate = () => {
-    // Xử lý logic hủy bài đăng với ID
-    navigation.navigate("Create")
+    navigation.navigate("BaiTimViecMoi");
   };
   const handleDetail = (id) => {
-    console.log("Da click vao bai post co id "+ id);
-    navigation.navigate("Detail",{
-      idpost : id
+    console.log("Da click vao bai post co id " + id);
+    navigation.navigate("Detail", {
+      idpost: id,
     }); // Navigate đến màn hình ScreenB trong cùng một Stack Navigator
   };
 
   return (
     <SafeAreaView style={{ flex: 1, padding: 10 }}>
-      <Button onPress={handleCreate} title="Bài viết mới" color={PRIMARY.main} />
+      <Button
+        onPress={handleCreate}
+        title="Bài viết mới"
+        color={PRIMARY.main}
+      />
       <ScrollView>
         {dsbaiDang.map((baidang, index) => (
           <TouchableOpacity onPress={() => handleDetail(baidang.id)}>
@@ -70,9 +68,3 @@ export default function BaiTimViecS({navigation}) {
     </SafeAreaView>
   );
 }
-
-
-
-
-
-

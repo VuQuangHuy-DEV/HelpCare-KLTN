@@ -141,14 +141,14 @@ const pickImage = async () => {
                 source={
                   pickedImage
                     ? { uri: pickedImage }
-                    : require("../../assets/avatar.png")
+                    : require("../../../assets/avatar.png")
                 }
                 style={styles.avatar}
               />
             ) : (
               <Avatar.Image
                 size={100}
-                source={require("../../assets/avatar.png")}
+                source={require("../../../assets/avatar.png")}
                 style={styles.avatar}
               />
             )}

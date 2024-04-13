@@ -8,17 +8,19 @@ import {
   Image,
   StyleSheet,
   Button,
+  TouchableOpacity,
 } from "react-native";
 //config
 import { API_ROOT } from "../../../config-global";
 //axios
 import axios from "axios";
+import { PRIMARY } from "../../../assets/style/style-global";
 
 export default ChiTietBaiThue = ({ route }) => {
   // Lấy dữ liệu bài đăng từ route
   const { idpost } = route.params;
 
-  const API_CHI_TIET = API_ROOT + `rental/post/detail/${idpost}/`;
+  const API_CHI_TIET = API_ROOT + `booking/post/detail/${idpost}/`;
   const [post, setPost] = useState();
 
   useEffect(() => {
@@ -34,35 +36,76 @@ export default ChiTietBaiThue = ({ route }) => {
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
+    post ?  <ScrollView style={styles.container}>
+ 
+    <View
+      key={post.id}
+      style={{
+        padding: 15,
+      
+        borderWidth: 1,
+        borderColor: "black",
+        borderRadius: 10,
+        margin: 5,
+      }}
+    >
+      <View style={{}}>
       <Image
-        source={{
-          uri: "https://cdn.sforum.vn/sforum/wp-content/uploads/2018/11/3-8.png",
-        }}
-        style={styles.image}
+        source={{ uri: post.khach_hang_id.anh_dai_dien }}
+        style={styles.avatar}
       />
-      <View style={styles.content}>
-        <Text style={styles.title}>{idpost}</Text>
-        <Text style={styles.title}>{post ? post.tieu_de : "Loading..."}</Text>
-        <Text style={styles.description}>
-          {post ? post.chi_tiet : "Loading..."}
-        </Text>
-        <Text style={styles.salary}>
-          Salary: {post ? post.salary : "Loading..."}
-        </Text>
-        <Text style={styles.location}>
-          Location: {post ? post.location : "Loading..."}
-        </Text>
-        <Text style={styles.date}>
-          Posted on: {post ? post.thoi_gian_dang : "Loading..."}
-        </Text>
-        <Text style={styles.date}>
-          Posted on: {post ? post.ngay_khoi_tao : "Loading..."}
-        </Text>
-        <Button title="Thuê" variant="text" onPress={()=>{}} />
-
       </View>
-    </ScrollView>
+      <View style={{ flex: 1, marginRight: 10 }}>
+        <Text
+          style={{ color: PRIMARY.main, fontSize: 20, fontWeight: "bold" }}
+        >
+          {post.tieu_de}
+        </Text>
+        <View
+          style={{ height: 1, backgroundColor: "black", marginBottom: 5 }}
+        />
+        <Text style={styles.title}>
+          Người đăng: {post.khach_hang_id.ho_ten}
+        </Text>
+        <Text style={styles.description}>Mô tả: {post.mo_ta_ngan}</Text>
+    
+        <View style={{ flexDirection: "row", marginTop: 5 }}>
+          <Text style={styles.label}>Giá:</Text>
+          <Text>{post.gia}  đ</Text>
+        </View>
+        
+
+
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#2baf66",
+            height: 60,
+            width: "80%",
+            marginLeft: "10%",
+            borderRadius: 10,
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: 50,
+            marginTop:30
+          }}
+          onPress={()=>{}}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              color: "white",
+              fontWeight: "bold",
+            }}
+          >
+           Nhận công việc này
+          </Text>
+        </TouchableOpacity>
+      
+      </View>
+    </View>
+    
+  </ScrollView> : null
+   
   );
 };
 
@@ -70,11 +113,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+   
+   
   },
   image: {
-    width: "100%",
+    width: 200,
     height: 200,
     resizeMode: "cover",
+    borderRadius: "50%",
   },
   content: {
     padding: 20,
@@ -100,5 +146,12 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 14,
     color: "#666",
+  },
+  avatar: {
+    width: 120,
+    height: 120,
+    resizeMode: "contain",
+    marginRight: 10,
+    borderRadius: 60 // Sửa thành số
   },
 });
