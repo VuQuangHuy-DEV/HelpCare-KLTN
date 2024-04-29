@@ -29,18 +29,18 @@ export default function InvoiceCreatePage() {
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="Create a new invoice"
+          heading="Tạo giao dịch mới"
           links={[
             {
-              name: 'Dashboard',
+              name: 'Bảng điều khiển',
               href: PATH_DASHBOARD.root,
             },
             {
-              name: 'Invoices',
+              name: 'Giao dịcg',
               href: PATH_DASHBOARD.invoice.list,
             },
             {
-              name: 'New invoice',
+              name: 'Tạo giao dịch mới',
             },
           ]}
         />

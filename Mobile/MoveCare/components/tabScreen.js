@@ -1,141 +1,111 @@
 import React from "react";
-import { View, Image, SafeAreaView } from "react-native";
+import { View, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-
-import DsDichVu from "../components/DatDichVu/DsDichVu";
-
-import LichSu from "../components/LichSu";
-import TrangChuTab from "../components/TrangChuTab";
-import TrangCaNhan from "./ThongTin/TrangCaNhan";
+import TrangChuStack from "./TrangChu/TrangChuStack";
 import PostStackNavigator from "./BaiViet/Post";
 import TaiKhoanStack from "./ThongTin/TaiKhoanStack";
 import ChatStack from "./Chat/chatStack";
+import GiaoDichStack from "./GiaoDich/GiaoDichStack";
 
-//Thông Báo
+import { ThanhToanMM } from "./TrangChu/ThanhToanMM";
+
+// Thông Báo
 import StackThongBao from "./ThongBao/DSThongBao";
 
 const Tab = createBottomTabNavigator();
 
-const TabScreen = () => {
+export default  TabScreen = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Trang Chủ"
-      tabBarOptions={{
-        activeTintColor: "#2baf66",
     
-      
-      }}
-      options={{
-        headerLeft: null, // Ngăn chặn nút quay trở lại ở màn hình chính
-      }}
+      initialRouteName="Trang Chủ"
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
+          let iconColor = focused ? "#2baf66" : color; // Màu của icon khi được nhấn
 
           switch (route.name) {
-            case "DsDichVu":
-              iconName = focused ? "cart" : "cart-outline";
-              return <Ionicons name={iconName} size={size} color={color} />;
-            case "Bài Viết":
+           
+          
+            case "Bài Viết": // Bạn có thể loại bỏ một trong hai, nếu chúng có cùng ý nghĩa
               iconName = focused ? "create" : "create-outline";
-              return <Ionicons name={iconName} size={size} color={color} />;
-            case "Bài Viêt":
-              iconName = focused ? "create" : "create-outline";
-              return <Ionicons name={iconName} size={size} color={color} />;
+              break;
             case "Lịch sử":
-              return (
-                <Ionicons
-                  name={focused ? "reader-outline" : "receipt-outline"}
-                  size={size}
-                  color={color}
-                />
-              );
+              iconName = focused ? "reader-outline" : "receipt-outline";
+              break;
             case "Trang Chủ":
               iconName = focused ? "home" : "home-outline";
-              return (
-                <Ionicons
-                  name={iconName}
-                  size={size}
-                  color={color}
-                  backgroundColor="white"
-                  borderColor="red"
-                  padding="5" // Padding để icon không chạm vào viền
-                  margin="10"
-                />
-              );
+              break;
             case "Đăng Bài":
               iconName = focused ? "create" : "create-outline";
-              return <Ionicons name={iconName} size={size} color={color} />;
+              break;
             case "Thông tin":
               iconName = "person-outline";
-              return <Ionicons name={iconName} size={size} color={color} />;
+              break;
             case "Thông báo":
               iconName = focused
                 ? "notifications-circle-outline"
                 : "notifications-outline";
-              return <Ionicons name={iconName} size={size} color={color} />;
+              break;
             case "Nhắn tin":
               iconName = focused
-              ? "chatbubble-ellipses-outline"
+                ? "chatbubble-ellipses-outline"
                 : "chatbubble-outline";
-              return <Ionicons name={iconName} size={size} color={color} />;
+              break;
             default:
-              return null;
+              iconName = ""; // Nếu không có icon nào được thiết lập
+              break;
           }
+
+          return <Ionicons name={iconName} size={size} color={iconColor} />;
         },
       })}
     >
       <Tab.Screen
         name="Lịch sử"
-        component={LichSu}
+        component={GiaoDichStack}
         options={{
           headerLeft: null, // Ngăn chặn nút quay trở lại ở màn hình chính
         }}
       />
-      <Tab.Screen
-        name="DsDichVu"
-        component={DsDichVu}
-        options={{
-          headerLeft: null, // Ngăn chặn nút quay trở lại ở màn hình chính
-        }}
-      />
+ 
       <Tab.Screen name="Thông báo" component={StackThongBao} />
       <Tab.Screen
         name="Trang Chủ"
-        component={TrangChuTab}
+        component={TrangChuStack}
         options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <View
-                style={{
-                  borderColor: "#C8FACD",
-                  borderRadius: 50,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  top: -15,
-                  borderWidth: 1,
-                  paddingVertical: 5,
-                  paddingHorizontal: 2,
-                  backgroundColor: { focused } ? "#C8FACD" : "#C8FACD",
-                }}
-              >
-                <Image
-                  source={require("../assets/favicon-32x32.png")} // Đường dẫn đến hình ảnh
-                  style={{ width: 37, height: 37 }} // Kích thước của hình ảnh
-                />
-              </View>
-            );
-          },
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                borderColor: "#C8FACD",
+                borderRadius: 50,
+                justifyContent: "center",
+                alignItems: "center",
+                top: -15,
+                borderWidth: 1,
+                paddingVertical: 5,
+                paddingHorizontal: 2,
+                backgroundColor: focused ? "#2baf66" : "#C8FACD",
+              }}
+            >
+              <Image
+                source={require("../assets/favicon-32x32.png")} // Đường dẫn đến hình ảnh
+                style={{ width: 37, height: 37 }} // Kích thước của hình ảnh
+              />
+            </View>
+          ),
         }}
       />
-
       <Tab.Screen name="Bài Viết" component={PostStackNavigator} />
-      <Tab.Screen name="Nhắn tin" component={ChatStack} />
+      {/* <Tab.Screen name="Nhắn tin" component={ChatStack} /> */}
       <Tab.Screen name="Thông tin" component={TaiKhoanStack} />
+      <Tab.Screen name="Momo" component={ThanhToanMM} />
+
+      
     </Tab.Navigator>
   );
 };
 
-export default TabScreen;
+

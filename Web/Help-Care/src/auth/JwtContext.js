@@ -9,8 +9,8 @@ import { isValidToken, setSession } from './utils';
 import axios from 'axios';
 import { API_ROOT } from 'src/config-global';
 
-const api_login = API_ROOT + 'auth/login/'
-const api_current_user = API_ROOT + 'auth/khachhang/info/'
+const api_login = API_ROOT + 'auth/nhanvien/login/'
+const api_current_user = API_ROOT + 'auth/nhanvien/info/'
 
 // ----------------------------------------------------------------------
 

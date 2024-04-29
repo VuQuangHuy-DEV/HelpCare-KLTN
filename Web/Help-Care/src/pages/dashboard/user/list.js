@@ -178,10 +178,7 @@ export default function UserListPage() {
     setFilterName(event.target.value);
   };
 
-  const handleFilterRole = (event) => {
-    setPage(0);
-    setFilterRole(event.target.value);
-  };
+
 
   const handleDeleteRow = (id) => {
     const deleteRow = tableData.filter((row) => row.id !== id);
@@ -251,18 +248,7 @@ export default function UserListPage() {
         
         {/* thanh trượt ở trên */}
         <Card>
-          <Tabs
-            value={filterStatus}
-            onChange={handleFilterStatus}
-            sx={{
-              px: 2,
-              bgcolor: 'background.neutral',
-            }}
-          >
-            {STATUS_OPTIONS.map((tab) => (
-              <Tab key={tab} label={tab} value={tab} />
-            ))}
-          </Tabs>
+      
 
           <Divider />
           {/* thanh search */}
@@ -272,7 +258,7 @@ export default function UserListPage() {
             filterRole={filterRole}
             optionsRole={ROLE_OPTIONS}
             onFilterName={handleFilterName}
-            onFilterRole={handleFilterRole}
+          
             onResetFilter={handleResetFilter}
           />
 
@@ -392,7 +378,7 @@ function applyFilter({ inputData, comparator, filterName, filterStatus, filterRo
 
   if (filterName) {
     inputData = inputData.filter(
-      (user) => user.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
+      (user) => user.ho_ten.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
     );
   }
 

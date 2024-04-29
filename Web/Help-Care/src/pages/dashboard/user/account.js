@@ -21,6 +21,7 @@ import {
   AccountNotifications,
   AccountChangePassword,
 } from '../../../sections/@dashboard/user/account';
+import { API_ROOT,appName } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
@@ -40,30 +41,9 @@ export default function UserAccountPage() {
       icon: <Iconify icon="ic:round-account-box" />,
       component: <AccountGeneral />,
     },
-    {
-      value: 'billing',
-      label: 'Billing',
-      icon: <Iconify icon="ic:round-receipt" />,
-      component: (
-        <AccountBilling
-          cards={_userPayment}
-          addressBook={_userAddressBook}
-          invoices={_userInvoices}
-        />
-      ),
-    },
-    {
-      value: 'notifications',
-      label: 'Notifications',
-      icon: <Iconify icon="eva:bell-fill" />,
-      component: <AccountNotifications />,
-    },
-    {
-      value: 'social_links',
-      label: 'Social links',
-      icon: <Iconify icon="eva:share-fill" />,
-      component: <AccountSocialLinks socialLinks={_userAbout.socialLinks} />,
-    },
+    
+   
+    
     {
       value: 'change_password',
       label: 'Change password',
@@ -75,16 +55,16 @@ export default function UserAccountPage() {
   return (
     <>
       <Head>
-        <title> User: Account Settings | Minimal UI</title>
+        <title> Tài khoản: Cài đặt tài khoản | {appName}</title>
       </Head>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="Account"
+          heading="Tài khoản"
           links={[
-            { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.root },
-            { name: 'Account Settings' },
+            { name: 'Bảng điều khiển', href: PATH_DASHBOARD.root },
+            { name: 'Khách hàng', href: PATH_DASHBOARD.user.root },
+            { name: 'Cài đặt tài khoản' },
           ]}
         />
 

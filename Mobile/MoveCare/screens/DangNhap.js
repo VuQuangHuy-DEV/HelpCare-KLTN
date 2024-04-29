@@ -32,6 +32,7 @@ export default function DangNhap({ navigation }) {
         // Nếu đăng nhập thành công thì chuyển vào trang chủ
         token = saveData("TOKEN",response.data.data.token)
         saveData("NAME",response.data.data.ho_ten)
+        saveData("ID",response.data.data.idkh)
         // toeken = saveDataToAsyncStorage(response.data.data.token);
         if (response.data.message === "Login successful") {
           console.log("Đăng nhập thành công");

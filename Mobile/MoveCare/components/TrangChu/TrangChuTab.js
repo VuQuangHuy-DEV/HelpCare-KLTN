@@ -12,9 +12,11 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import Swiper from "react-native-swiper";
 
-import { PRIMARY } from "../assets/style/style-global";
+import { PRIMARY } from "../../assets/style/style-global";
 
 const { width } = Dimensions.get("window");
+
+
 
 const imagesList = [
   "https://file3.qdnd.vn/data/images/0/2023/05/03/vuhuyen/khanhphan.jpg",
@@ -24,16 +26,15 @@ const imagesList = [
 ];
 
 const services = [
-  { id: 1, name: "Dọn dẹp định ki ", icon: require("../assets/imgs/donnha-icon.png"), route: "DonDep" },
-  { id: 2, name: "Trông em bé", icon: require("../assets/imgs/trongtre-icon.png"), route: "TrongEmBe" },
-  { id: 3, name: "Giúp việc theo tháng", icon: require("../assets/imgs/repeat-icon.png"), route: "GiupViecThang" },
+  { id: 1, name: "Dọn dẹp định ki ", icon: require("../../assets/imgs/donnha-icon.png"), route: "Giao Dịch",price:"100" },
+  { id: 2, name: "Trông em bé", icon: require("../../assets/imgs/trongtre-icon.png"), route: "TrongEmBe",price: "80" },
+  { id: 3, name: "Giúp việc theo tháng", icon: require("../../assets/imgs/repeat-icon.png"), route: "GiupViecThang" },
+  { id: 4, name: "Dọn dẹp nhà", icon: require("../../assets/imgs/donnha-icon.png"), route: "DonDepNha" },
+  { id: 5, name: "Vệ sinh máy giặt", icon: require("../../assets/imgs/maygiat-icon.png"), route: "VeSinhMayGiat" },
+  { id: 6, name: "Nấu ăn", icon: require("../../assets/imgs/nauan-icon.png"), route: "NauAn" },
 ];
 
-const additionalServices = [
-  { id: 1, name: "Dọn dẹp nhà", icon: require("../assets/imgs/donnha-icon.png"), route: "DonDepNha" },
-  { id: 2, name: "Vệ sinh máy giặt", icon: require("../assets/imgs/maygiat-icon.png"), route: "VeSinhMayGiat" },
-  { id: 3, name: "Nấu ăn", icon: require("../assets/imgs/nauan-icon.png"), route: "NauAn" },
-];
+
 
 const Slideshow = ({ images }) => {
   return (
@@ -64,10 +65,10 @@ const Slideshow = ({ images }) => {
   );
 };
 
-const ServiceItem = ({ item }) => {
-  const navigation = useNavigation();
+const ServiceItem = ({ item, navigation }) => {
+  
   return (
-    <TouchableOpacity onPress={() => navigation.navigate(item.route)} style={styles.serviceItem}>
+    <TouchableOpacity onPress={() => navigation.navigate('Giao Dịch',{item:item})} style={styles.serviceItem}>
       <View style={styles.serviceIconContainer}>
         <ImageBackground
           source={item.icon}
@@ -80,23 +81,11 @@ const ServiceItem = ({ item }) => {
   );
 };
 
-const AdditionalServiceItem = ({ item }) => {
-  const navigation = useNavigation();
-  return (
-    <TouchableOpacity onPress={() => navigation.navigate(item.route)} style={styles.additionalServiceItem}>
-      <View style={styles.additionalServiceIconContainer}>
-        <ImageBackground
-          source={item.icon}
-          style={styles.additionalServiceIcon}
-          resizeMode="cover"
-        />
-        <Text style={styles.additionalServiceName}>{item.name}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
 
-const TrangChuTab = () => {
+
+const TrangChuTab = ({navigation}) => {
+
+ 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -108,19 +97,13 @@ const TrangChuTab = () => {
       <Text style={styles.categoryTitle}>Định kỳ</Text>
       <FlatList
         data={services}
-        renderItem={({ item }) => <ServiceItem item={item} />}
+        renderItem={({ item }) => <ServiceItem item={item} navigation={navigation} />}
         keyExtractor={(item) => item.id.toString()}
-        horizontal
+        numColumns= {3}
         contentContainerStyle={styles.servicesContainer}
       />
-      <Text style={styles.additionalServicesTitle}>Dịch vụ lẻ</Text>
-      <FlatList
-        data={additionalServices}
-        renderItem={({ item }) => <AdditionalServiceItem item={item} />}
-        keyExtractor={(item) => item.id.toString()}
-        horizontal
-        contentContainerStyle={styles.additionalServicesContainer}
-      />
+      
+  
     </SafeAreaView>
   );
 };
@@ -149,12 +132,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  additionalServicesTitle: {
-    marginTop: 20,
-    marginLeft: 10,
-    fontSize: 20,
-    fontWeight: "bold",
-  },
+
   sliderContainer: {
     height: 200,
   },
@@ -177,21 +155,21 @@ const styles = StyleSheet.create({
   },
   servicesContainer: {
     paddingHorizontal: 5,
+    paddingVertical: 5,
   },
-  additionalServicesContainer: {
-    paddingHorizontal: 5,
-    color: PRIMARY.main,
-  },
+
   serviceItem: {
     width: 115,
     height: 115,
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 5,
+    marginVertical:5,
     borderWidth: 1,
     borderColor: PRIMARY.main,
     borderRadius: 60,
     elevation: 5,
+    
   },
   additionalServiceItem: {
     width: 115,

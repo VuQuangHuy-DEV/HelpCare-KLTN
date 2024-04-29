@@ -82,25 +82,7 @@ export default function InvoiceToolbar({ invoice }) {
                 </IconButton>
               </Tooltip>
             )}
-          </PDFDownloadLink>
-
-          <Tooltip title="Print">
-            <IconButton>
-              <Iconify icon="eva:printer-fill" />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip title="Send">
-            <IconButton>
-              <Iconify icon="ic:round-send" />
-            </IconButton>
-          </Tooltip>
-
-          <Tooltip title="Share">
-            <IconButton>
-              <Iconify icon="eva:share-fill" />
-            </IconButton>
-          </Tooltip>
+          </PDFDownloadLink>     
         </Stack>
 
         <Button

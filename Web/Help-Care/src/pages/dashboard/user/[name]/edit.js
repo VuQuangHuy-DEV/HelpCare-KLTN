@@ -15,7 +15,11 @@ import { useSettingsContext } from '../../../../components/settings';
 import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs';
 // sections
 import UserNewEditForm from '../../../../sections/@dashboard/user/UserNewEditForm';
+// react
+import { useCallback,useState,useEffect } from 'react';
 
+//axios
+import axios from 'axios';
 //config
 import { nameApp,linkIcon,API_ROOT } from 'src/config-global';
 
@@ -35,9 +39,27 @@ export default function UserEditPage() {
   
 
 
-  const API_GET_KHACHHANG = API_ROOT + "";
 
-  const currentUser = _userList.find((user) => paramCase(user.name) === name);
+  const API_GET_KHACHHANG = API_ROOT + `auth/khachhang/detail/${userID}/`;
+  console.log(API_GET_KHACHHANG)
+  const [currentUser, setCurrentUser] = useState(null);
+
+
+
+  const getCurrentUser = useCallback(async () => {
+    try {
+      const response = await axios.get(API_GET_KHACHHANG);
+      setCurrentUser(response.data.data);
+      console.log(currentUser);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [API_GET_KHACHHANG]);
+  
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
+  
 
   return (
     <>

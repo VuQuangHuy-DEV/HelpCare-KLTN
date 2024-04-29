@@ -1,19 +1,46 @@
-import React, { useState } from "react";
+import {useState,useEffect,useCallback } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, ScrollView, SafeAreaView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { getData } from "../../helper/StoregeHelper";
+
+import axios from "axios";
+
+
+
+import { API_ROOT } from "../../config-global";
+
+const API_NOTI= API_ROOT + "notication/notis/byUser/b7e5d5cd7d6c4a11a646252acb0a5550/"
 
 import ChiTietTB from "./ChiTietTB";
 
-const DSThongBao = () => {
+
+const DSThongBao = ({navigation}) => {
   const [notifications, setNotifications] = useState([
-    { id: "1", title: "Thông báo 1", description: "Mô tả ngắn gọn 1", read: true },
-    { id: "2", title: "Thông báo 2", description: "Mô tả ngắn gọn 2", read: false },
-    { id: "3", title: "Thông báo 3", description: "Mô tả ngắn gọn 3", read: false },
-    // Thêm các thông báo khác tại đây
+
   ]);
 
-  const navigation = useNavigation();
+  const getAllNoti = useCallback(async () => {
+    try {
+      const response = await axios.get(API_NOTI);
+      const data = response.data.data;
+      setNotifications(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      getAllNoti();
+    });
+
+    return unsubscribe;
+  }, [navigation, getAllNoti]);
+
+
+
+ 
 
   const handleDetail = (id) => {
     console.log("Da click vao bai post co id " + id);
@@ -33,8 +60,9 @@ const DSThongBao = () => {
             ]}
             onPress={() => handleDetail(item.id)}
           >
-            <Text style={styles.notificationTitle}>{item.title}</Text>
-            <Text style={styles.notificationDescription}>{item.description}</Text>
+            <Text style={styles.notificationTitle}>Tiêu đề: {item.tieu_de}</Text>
+            <Text style={styles.notificationDescription}>Nội dung: {item.mota_ngan}</Text>
+            <Text style={styles.notificationDescription}> {item.da_doc ? "Đã đọc" :"Chưa đọc" }</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -65,9 +93,10 @@ const styles = StyleSheet.create({
   notificationItem: {
     padding: 10,
     marginBottom: 10,
-    borderRadius: 8,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: "#ccc",
+    marginHorizontal:5
   },
   notificationTitle: {
     fontSize: 16,

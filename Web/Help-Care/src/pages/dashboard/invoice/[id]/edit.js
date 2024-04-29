@@ -16,7 +16,7 @@ import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs';
 import InvoiceNewEditForm from '../../../../sections/@dashboard/invoice/form';
 
 // ----------------------------------------------------------------------
-
+import { API_ROOT,appName } from 'src/config-global';
 InvoiceEditPage.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 // ----------------------------------------------------------------------
@@ -33,7 +33,7 @@ export default function InvoiceEditPage() {
   return (
     <>
       <Head>
-        <title> Invoice: Edit | Minimal UI</title>
+        <title> Giao dịch: Chỉnh sửa | {appName}</title>
       </Head>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>

@@ -166,11 +166,11 @@ export default function InvoiceTableRow({
       <ConfirmDialog
         open={openConfirm}
         onClose={handleCloseConfirm}
-        title="Delete"
-        content="Are you sure want to delete?"
+        title="Xóa"
+        content="Bạn có chắc chắn muốn xóa?"
         action={
           <Button variant="contained" color="error" onClick={onDeleteRow}>
-            Delete
+            Xóa
           </Button>
         }
       />

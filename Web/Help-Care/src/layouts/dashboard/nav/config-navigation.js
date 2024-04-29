@@ -57,8 +57,6 @@ const navConfig = [
         path: PATH_DASHBOARD.user.root,
         icon: ICONS.user,
         children: [
-          { title: 'profile', path: PATH_DASHBOARD.user.profile },
-          { title: 'cards', path: PATH_DASHBOARD.user.cards },
           { title: 'list', path: PATH_DASHBOARD.user.list },
           { title: 'create', path: PATH_DASHBOARD.user.new },
           { title: 'edit', path: PATH_DASHBOARD.user.demoEdit },
@@ -97,12 +95,12 @@ const navConfig = [
       // BLOG tìm
       {
         title: 'Bài tìm việc',
-        path: PATH_DASHBOARD.blog.root,
+        path: PATH_DASHBOARD.blog2.root,
         icon: ICONS.blog,
         children: [
-          { title: 'posts', path: PATH_DASHBOARD.blog.posts },
-          { title: 'post', path: PATH_DASHBOARD.blog.demoView },
-          { title: 'create', path: PATH_DASHBOARD.blog.new },
+          { title: 'posts', path: PATH_DASHBOARD.blog2.posts },
+          { title: 'post', path: PATH_DASHBOARD.blog2.demoView },
+          { title: 'create', path: PATH_DASHBOARD.blog2.new },
         ],
       },
       // INVOICE
@@ -137,69 +135,7 @@ const navConfig = [
   },
 
   // DEMO MENU STATES
-  {
-    subheader: 'Other cases',
-    items: [
-      {
-        // default roles : All roles can see this entry.
-        // roles: ['user'] Only users can see this item.
-        // roles: ['admin'] Only admin can see this item.
-        // roles: ['admin', 'manager'] Only admin/manager can see this item.
-        // Reference from 'src/guards/RoleBasedGuard'.
-        title: 'item_by_roles',
-        path: PATH_DASHBOARD.permissionDenied,
-        icon: ICONS.lock,
-        roles: ['admin'],
-        caption: 'only_admin_can_see_this_item',
-      },
-      {
-        title: 'menu_level',
-        path: '#/dashboard/menu_level',
-        icon: ICONS.menuItem,
-        children: [
-          {
-            title: 'menu_level_2a',
-            path: '#/dashboard/menu_level/menu_level_2a',
-          },
-          {
-            title: 'menu_level_2b',
-            path: '#/dashboard/menu_level/menu_level_2b',
-            children: [
-              {
-                title: 'menu_level_3a',
-                path: '#/dashboard/menu_level/menu_level_2b/menu_level_3a',
-              },
-              {
-                title: 'menu_level_3b',
-                path: '#/dashboard/menu_level/menu_level_2b/menu_level_3b',
-                children: [
-                  {
-                    title: 'menu_level_4a',
-                    path: '#/dashboard/menu_level/menu_level_2b/menu_level_3b/menu_level_4a',
-                  },
-                  {
-                    title: 'menu_level_4b',
-                    path: '#/dashboard/menu_level/menu_level_2b/menu_level_3b/menu_level_4b',
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: 'item_disabled',
-        path: '#disabled',
-        icon: ICONS.disabled,
-        disabled: true,
-      },
 
-      
-      
-    
-     
-    ],
-  },
 ];
 
 export default navConfig;

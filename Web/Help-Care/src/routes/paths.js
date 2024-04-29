@@ -95,6 +95,13 @@ export const PATH_DASHBOARD = {
     viewdetail: (id) => path(ROOTS_DASHBOARD, `/blog/post/${id}`),
     demoView: path(ROOTS_DASHBOARD, '/blog/post/apply-these-7-secret-techniques-to-improve-event'),
   },
+  blog2: {
+    root: path(ROOTS_DASHBOARD, '/blog2'),
+    posts: path(ROOTS_DASHBOARD, '/blog2/posts'),
+    new: path(ROOTS_DASHBOARD, '/blog2/new'),
+    viewdetail: (id) => path(ROOTS_DASHBOARD, `/blog2/post/${id}`),
+    demoView: path(ROOTS_DASHBOARD, '/blog/post/apply-these-7-secret-techniques-to-improve-event'),
+  },
 };
 
 export const PATH_DOCS = {

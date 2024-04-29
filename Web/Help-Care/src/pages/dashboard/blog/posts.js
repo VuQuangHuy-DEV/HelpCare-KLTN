@@ -24,11 +24,7 @@ import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../../../sections/
 import { nameApp,API_ROOT } from 'src/config-global';
 // ----------------------------------------------------------------------
 
-const SORT_OPTIONS = [
-  { value: 'latest', label: 'Latest' },
-  { value: 'popular', label: 'Popular' },
-  { value: 'oldest', label: 'Oldest' },
-];
+
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +33,7 @@ BlogPostsPage.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 // ----------------------------------------------------------------------
 
 export default function BlogPostsPage() {
-  const API_GET_POSTS = API_ROOT + "rental/posts/";
+  const API_GET_POSTS = API_ROOT + "booking/posts/";
 
 
 
@@ -63,9 +59,6 @@ export default function BlogPostsPage() {
     getAllPosts();
   }, [getAllPosts]);
 
-  const handleChangeSortBy = (event) => {
-    setSortBy(event.target.value);
-  };
 
   return (
     <>
@@ -75,18 +68,18 @@ export default function BlogPostsPage() {
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="Blog"
+          heading="Bài viết"
           links={[
             {
-              name: 'Dashboard',
+              name: 'Bảng điều khiển',
               href: PATH_DASHBOARD.root,
             },
             {
-              name: 'Blog',
+              name: 'Bài Thuê',
               href: PATH_DASHBOARD.blog.root,
             },
             {
-              name: 'Posts',
+              name: 'Tất cả bài thuê',
             },
           ]}
           action={
@@ -103,7 +96,6 @@ export default function BlogPostsPage() {
 
         <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
           <BlogPostsSearch />
-          <BlogPostsSort sortBy={sortBy} sortOptions={SORT_OPTIONS} onSort={handleChangeSortBy} />
         </Stack>
 
         <Grid container spacing={3}>

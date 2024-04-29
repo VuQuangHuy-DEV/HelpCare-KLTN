@@ -16,7 +16,7 @@ import { API_ROOT } from "../../../config-global";
 import axios from "axios";
 import { PRIMARY } from "../../../assets/style/style-global";
 
-export default ChiTietBaiThue = ({ route }) => {
+export default ChiTietBaiThue = ({ route,navigation }) => {
   // Lấy dữ liệu bài đăng từ route
   const { idpost } = route.params;
 
@@ -35,6 +35,11 @@ export default ChiTietBaiThue = ({ route }) => {
     getDetailPost();
   }, []);
 
+  const handleBooking = ()=>{
+      navigation.navigate("BaiTimViecMoi")
+      console.log("Clicked")
+  }
+
   return (
     post ?  <ScrollView style={styles.container}>
  
@@ -49,7 +54,7 @@ export default ChiTietBaiThue = ({ route }) => {
         margin: 5,
       }}
     >
-      <View style={{}}>
+      <View style={{alignItems:"center"}}>
       <Image
         source={{ uri: post.khach_hang_id.anh_dai_dien }}
         style={styles.avatar}
@@ -73,6 +78,9 @@ export default ChiTietBaiThue = ({ route }) => {
           <Text style={styles.label}>Giá:</Text>
           <Text>{post.gia}  đ</Text>
         </View>
+        <View>
+          <Text>Trạng thái: {post.da_duyet ? "Được duyệt": "Chưa được duyệt"} </Text>
+        </View>
         
 
 
@@ -88,7 +96,7 @@ export default ChiTietBaiThue = ({ route }) => {
             marginBottom: 50,
             marginTop:30
           }}
-          onPress={()=>{}}
+          onPress={()=>handleBooking()}
         >
           <Text
             style={{

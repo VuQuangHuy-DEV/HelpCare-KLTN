@@ -45,14 +45,13 @@ export default function UserNewEditForm({ isEdit = false, currentUser }) {
     country: Yup.string().required('Country is required'),
     company: Yup.string().required('Company is required'),
     state: Yup.string().required('State is required'),
-    city: Yup.string().required('City is required'),
-    role: Yup.string().required('Role is required'),
+   
     avatarUrl: Yup.mixed().required('Avatar is required'),
   });
 
   const defaultValues = useMemo(
     () => ({
-      name: currentUser?.name || '',
+      name: currentUser?.ho_ten || '',
       email: currentUser?.email || '',
       phoneNumber: currentUser?.phoneNumber || '',
       address: currentUser?.address || '',
@@ -60,13 +59,12 @@ export default function UserNewEditForm({ isEdit = false, currentUser }) {
       state: currentUser?.state || '',
       city: currentUser?.city || '',
       zipCode: currentUser?.zipCode || '',
-      avatarUrl: currentUser?.avatarUrl || null,
+      avatarUrl: currentUser?.anh_dai_dien || null,
       isVerified: currentUser?.isVerified || true,
       status: currentUser?.status,
-      company: currentUser?.company || '',
-      role: currentUser?.role || '',
+
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  
     [currentUser]
   );
 
@@ -238,13 +236,12 @@ export default function UserNewEditForm({ isEdit = false, currentUser }) {
               <RHFTextField name="city" label="City" />
               <RHFTextField name="address" label="Address" />
               <RHFTextField name="zipCode" label="Zip/Code" />
-              <RHFTextField name="company" label="Company" />
-              <RHFTextField name="role" label="Role" />
+  
             </Box>
 
             <Stack alignItems="flex-end" sx={{ mt: 3 }}>
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                {!isEdit ? 'Create User' : 'Save Changes'}
+                {!isEdit ? 'Tạo tài khoản' : 'Thay đổi thông tin'}
               </LoadingButton>
             </Stack>
           </Card>

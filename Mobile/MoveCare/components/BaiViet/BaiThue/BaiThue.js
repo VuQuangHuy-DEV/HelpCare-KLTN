@@ -4,10 +4,13 @@ import { Chip, Button } from "react-native-paper";
 import { Icon, MD3Colors } from "react-native-paper";
 import { PRIMARY } from "../../../assets/style/style-global";
 
-export default function BaiThue({ baidang, onDuyet, onHuy }) {
+export default function BaiThue({ baidang, onDuyet, onHuy , show }) {
+
+  show == true ? show = true : show = baidang.da_duyet
+
  
   return (
-    baidang.da_duyet ? <View
+    show ? <View
     key={baidang.id}
     style={{
       padding: 15,

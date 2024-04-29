@@ -29,7 +29,7 @@ UserTableRow.propTypes = {
 };
 
 export default function UserTableRow({ row, selected, onEditRow, onSelectRow, onDeleteRow }) {
-  const { name, avatarUrl, company, role, isVerified, status,ho_ten,is_verify } = row;
+  const { name, avatarUrl, company, role, isVerified, status, ho_ten, is_verify } = row;
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -54,21 +54,26 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
   return (
     <>
       <TableRow hover selected={selected}>
-        <TableCell padding="checkbox">
-          <Checkbox checked={selected} onClick={onSelectRow} />
-        </TableCell>
+        <TableCell padding="checkbox"></TableCell>
 
         <TableCell>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Avatar alt={ho_ten} src={avatarUrl} />
 
-            <Typography variant="subtitle2" noWrap>
+            <Typography
+              variant="subtitle2"
+              noWrap
+              onClick={() => {
+                onEditRow();
+                handleClosePopover();
+              }}
+            >
               {ho_ten}
             </Typography>
           </Stack>
         </TableCell>
 
-        <TableCell align="left">{company}</TableCell>
+        <TableCell align="left">{row.phone_number}</TableCell>
 
         <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
           {role}
@@ -109,15 +114,7 @@ export default function UserTableRow({ row, selected, onEditRow, onSelectRow, on
         arrow="right-top"
         sx={{ width: 140 }}
       >
-        <MenuItem
-          onClick={() => {
-            onEditRow();
-            handleClosePopover();
-          }}
-        >
-          <Iconify icon="eva:edit-fill" />
-          Xác nhận
-        </MenuItem>
+     
         <MenuItem
           onClick={() => {
             handleOpenConfirm();

@@ -14,8 +14,10 @@ import { useSettingsContext } from '../../../../components/settings';
 import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs';
 // sections
 import InvoiceDetails from '../../../../sections/@dashboard/invoice/details';
+import { nameApp } from 'src/config-global';
 
 // ----------------------------------------------------------------------
+//
 
 InvoiceDetailsPage.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
@@ -33,7 +35,7 @@ export default function InvoiceDetailsPage() {
   return (
     <>
       <Head>
-        <title> Invoice: View | Minimal UI</title>
+        <title> Hóa đơn | {nameApp}</title>
       </Head>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>

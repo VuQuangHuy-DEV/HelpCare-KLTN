@@ -12,6 +12,10 @@ import ChiTietBaiDang from "./BaiThue/ChiTietBaiThue";
 // Bài tìm việc
 import BaiTimViecS from './BaiTimViec/BaiTimViecS';
 import BaiTimViecMoi from './BaiTimViec/BaiTimViecMoi';
+import ChiTietBaiTimViec from './BaiTimViec/ChiTietBaiTimViec';
+
+//Giao dich
+import GiaoDich from '../TrangChu/GiaoDich';
 
 
 const Post = ({navigation}) => {
@@ -43,8 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start', // Đặt 'flex-start' để tiêu đề nằm ở trên cùng
     alignItems: 'center',
     backgroundColor: 'white',
-    borderWidth: 1,
-    borderColor: 'blue',
+  
   },
   title: {
     fontSize: 20,
@@ -68,7 +71,8 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 10,
     backgroundColor: 'white',
-    borderWidth: 1,
+    borderWidth:1,
+   
     borderColor: PRIMARY.main,
     borderRadius: 10,
   },
@@ -93,6 +97,10 @@ const PostStackNavigator = () => {
       {/* Bài tìm việc */}
       <Stack.Screen name="BaiTimViecS" component={BaiTimViecS} options={{headerTitle: ''}} />
       <Stack.Screen name="BaiTimViecMoi" component={BaiTimViecMoi} options={{headerTitle: ''}} />
+      <Stack.Screen name="BaiTimViecDetail" component={ChiTietBaiTimViec} options={{headerTitle: ''}} />
+      <Stack.Screen name="GiaoDich" component={GiaoDich} options={{headerTitle: ''}} />
+
+
 
 
     </Stack.Navigator>

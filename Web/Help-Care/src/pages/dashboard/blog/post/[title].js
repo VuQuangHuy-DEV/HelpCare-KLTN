@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 // @mui
-import { Box, Divider, Stack, Container, Typography, Pagination } from '@mui/material';
+import { Box, Divider, Stack, Container, Typography, Pagination, Button } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // utils
@@ -16,16 +16,10 @@ import CustomBreadcrumbs from '../../../../components/custom-breadcrumbs';
 import { useSettingsContext } from '../../../../components/settings';
 import { SkeletonPostDetails } from '../../../../components/skeleton';
 // sections
-import {
-  BlogPostHero,
-  BlogPostTags,
-  BlogPostCard,
-  // BlogPostCommentList,
-  BlogPostCommentForm,
-} from '../../../../sections/@dashboard/blog';
+import { BlogPostHero, BlogPostTags, BlogPostCard } from '../../../../sections/@dashboard/blog';
 
 // config
-import { nameApp, API_ROOT,linkIcon } from 'src/config-global';
+import { nameApp, API_ROOT, linkIcon } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
@@ -41,7 +35,13 @@ export default function BlogPostPage() {
   } = useRouter();
   const id = title;
 
-  const API_GET_POST_DETAIL = API_ROOT + 'rental/post/detail/' + id + '/';
+  const API_GET_POST_DETAIL = API_ROOT + 'booking/post/detail/' + id + '/';
+  const API_DUYET_BAi = API_ROOT + 'booking/post/approve/' + id + '/';
+  const API_TU_CHOI = API_ROOT + 'booking/post/refuse/' + id + '/';
+
+
+
+  
 
   const [post, setPost] = useState(null);
 
@@ -71,23 +71,42 @@ export default function BlogPostPage() {
 
   console.log(post);
 
+  const handleDuyet = async () => {
+    try {
+      const response = await axios.get(API_DUYET_BAi);
+      setPost(response.data.data);
+      console.log(response.data);
+      console.log(post);
+    } catch (error) {}
+  };
+
+
+  const handleTuChoi = async () => {
+    try {
+      const response = await axios.get(API_TU_CHOI);
+      setPost(response.data.data);
+      console.log(response.data);
+      console.log(post);
+    } catch (error) {}
+  };
+
   return (
     <>
       <Head>
         <title>{`Blog: ${post?.tieu_de || ''} | ${nameApp}`}</title>
-        <link rel="icon" type="image/png" href={linkIcon}/> 
+        <link rel="icon" type="image/png" href={linkIcon} />
       </Head>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <CustomBreadcrumbs
-          heading="Post Details"
+          heading="Chi tiết bài thuê"
           links={[
             {
-              name: 'Dashboard',
+              name: 'Bảng điều khiển',
               href: PATH_DASHBOARD.root,
             },
             {
-              name: 'Blog',
+              name: 'Bài thuê',
               href: PATH_DASHBOARD.blog.root,
             },
             {
@@ -106,7 +125,6 @@ export default function BlogPostPage() {
             }}
           >
             <BlogPostHero post={post} />
-
             <Typography
               variant="h6"
               sx={{
@@ -116,17 +134,34 @@ export default function BlogPostPage() {
             >
               {post.description}
             </Typography>
-
-
             description: {post.chi_tiet}
-
             <Markdown
               children={post.body}
               sx={{
                 px: { md: 5 },
               }}
             />
-
+            <Stack
+              direction="row"
+              alignItems="center"
+              spacing={1}
+              sx={{
+                py: 5,
+                px: { md: 5 },
+              }}
+            >
+              <Typography variant="body1">Trạng thái:</Typography>
+              <Stack
+                variant="body1"
+                sx={{
+                  color: post.da_duyet ? '#4CAF50' : '#f44336',
+                }}
+                direction="row"
+                alignItems="center"
+              >
+                <span>{post.da_duyet ? 'Đã được duyệt' : 'Chưa duyệt'}</span>
+              </Stack>
+            </Stack>
             <Stack
               spacing={3}
               sx={{
@@ -138,40 +173,28 @@ export default function BlogPostPage() {
               <BlogPostTags post={post} />
               <Divider />
             </Stack>
-
             <Stack
               sx={{
                 px: { md: 5 },
               }}
             >
-              <Stack direction="row" sx={{ mb: 3 }}>
-                <Typography variant="h4">Comments</Typography>
-
-                <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
-                  ({100})
-                </Typography>
-              </Stack>
-
-              <BlogPostCommentForm />
-
               <Divider sx={{ mt: 5, mb: 2 }} />
             </Stack>
-
             <Stack
+              direction="row" // Đảm bảo cả hai nút nằm trên cùng một hàng
+              spacing={2} // Khoảng cách giữa các nút
               sx={{
+                justifyContent: 'center', // Căn giữa các phần tử trong Stack
                 px: { md: 5 },
+                py: 2, // Khoảng cách lề trên và dưới
               }}
             >
-              {/* <BlogPostCommentList comments={post.comments} /> */}
-
-              <Pagination
-                count={8}
-                sx={{
-                  my: 5,
-                  ml: 'auto',
-                  mr: { xs: 'auto', md: 0 },
-                }}
-              />
+              <Button onClick={handleDuyet} variant="contained" color="primary">
+                Duyệt bài
+              </Button>
+              <Button onClick={handleTuChoi} variant="contained" color="error">
+                Từ chối
+              </Button>
             </Stack>
           </Stack>
         )}
