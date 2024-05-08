@@ -3,7 +3,7 @@ import { PATH_DASHBOARD } from './routes/paths';
 
 // API
 // ----------------------------------------------------------------------
-export const API_ROOT = "http://127.0.0.1:8000/api/v1/"
+export const API_ROOT = "https://vuquanghuydev.pythonanywhere.com/api/v1/"
 
 export const linkIcon = '/favicon/favicon-32x32.png'
 
