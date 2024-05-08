@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from Document.models import (CompanyDoc,HopDong)
+from Document.models import (CompanyDoc,HopDong,DichVu)
 
 
 
@@ -13,3 +13,10 @@ class HopDongSerializer(serializers.ModelSerializer):
     class Meta:
         model = HopDong
         fields = '__all__'
+
+class DichVuSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DichVu
+        fields = '__all__'
+
+

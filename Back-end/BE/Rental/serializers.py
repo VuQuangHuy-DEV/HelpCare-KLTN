@@ -3,6 +3,7 @@ from datetime import datetime
 from rest_framework import serializers
 
 from Authentication.models import User, UserReview
+from Authentication.serializers import KhachHangGetListSerializer
 from ultis.api_helper import format_time_difference
 from ultis.helper import is_valid_image, create_image_array
 from .models import BaiTimViec
@@ -14,7 +15,7 @@ from .models import BaiTimViec
 
 class BaiTimViecsSerializer(serializers.ModelSerializer):
     # nó sẽ hiển thị trường đơn giản thay vì cả một objec json
-    khach_hang = serializers.StringRelatedField()
+    khach_hang_id = KhachHangGetListSerializer()
     ngay_khoi_tao = serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S", read_only=True)
 
     class Meta:
@@ -23,7 +24,7 @@ class BaiTimViecsSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        return create_image_array(data, instance)
+        return data
 
 
 class RentalCreateSerializer(serializers.ModelSerializer):

@@ -33,13 +33,10 @@ class HopDong(models.Model):
 
     def __str__(self):
         return f"{self.nguoi_lao_dong.id}'s hợp đồng với phía công ty {self.cong_ty}"
-# Bảng giá
-class BangGia(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    loi_nhuan = models.DecimalField(default=30,decimal_places=2,max_digits=10)
 
 
-class DichVu(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    ten_dich_vu = models.CharField(max_length=200)
-    don_gia = models.PositiveIntegerField()
+# class DichVu(models.Model):
+#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     ten_dich_vu = models.CharField(max_length=200)
+#     don_gia = models.PositiveIntegerField()
+

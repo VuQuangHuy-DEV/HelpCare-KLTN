@@ -19,7 +19,7 @@ export default function Routing() {
   return (
     <NavigationContainer>
       <Tab.Navigator 
-      //  tabBar={ () => null } // Ẩn nút điều hướng của các tab
+       tabBar={ () => null } // Ẩn nút điều hướng của các tab
        backBehavior="none" // Tắt chức năng quay lại
        initialRouteName="SplashScreen" // Đặt màn hình khởi đầu là SplashScreen
        >

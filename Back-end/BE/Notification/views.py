@@ -6,11 +6,12 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from firebase_admin import messaging
 
-from api.services.firebase import send_push_notification
+##from api.services.firebase import send_push_notification
 from ultis.api_helper import api_decorator
 from .serializers import NotificationSerializer
 from .models import Notification
 from django.db import transaction
+from django.db.models import Q
 
 
 class RegisterDeviceToken(APIView):
@@ -64,7 +65,7 @@ class SendPushNotification(APIView):
                 "type": "Tên loại",
                 "content_id": "45h45u4hu5"
             }
-            send_push_notification(device_token, title, body, data, user)
+          ##  send_push_notification(device_token, title, body, data, user)
             # save noti
             notification_data = {
                 'user': user.id,
@@ -95,6 +96,13 @@ class NotificationDetailView(APIView):
         queryset.mark_as_read()
         serializer = NotificationSerializer(queryset, context={'request': request})
         return serializer.data, "Read", status.HTTP_200_OK
+class NotificationNotiDetailView(APIView):
+    @api_decorator
+    def get(self, request, pk):
+        queryset = Notification.objects.get(id=pk)
+        queryset.mark_as_read()
+        serializer = NotificationSerializer(queryset, context={'request': request})
+        return serializer.data, "Read", status.HTTP_200_OK
 
 
 class NotiListByUser(APIView):
@@ -108,11 +116,10 @@ class NotiListByUser(APIView):
 
 
 class NotiListReadsByUser(APIView):
-    permission_classes = [IsAuthenticated]
 
     @api_decorator
-    def get(self, request):
-        queryset = Notification.objects.filter(user=request.user.id)
+    def get(self, request,id):
+        queryset = Notification.objects.filter(Q(user=id) | Q(loai='All'))
 
         with transaction.atomic():
             for notification in queryset:
@@ -120,3 +127,13 @@ class NotiListReadsByUser(APIView):
 
         serializer = NotificationSerializer(queryset, many=True)
         return serializer.data, "Read all notice", status.HTTP_200_OK
+
+
+class CrateNewNotiView(APIView):
+    @api_decorator
+    def post(self, request):
+        serializer = NotificationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return serializer.data,"Create Noti Successfull" ,status.HTTP_201_CREATED
+        raise ValueError("Error saving notification data ")

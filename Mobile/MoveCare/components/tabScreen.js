@@ -101,7 +101,7 @@ export default  TabScreen = () => {
       <Tab.Screen name="Bài Viết" component={PostStackNavigator} />
       {/* <Tab.Screen name="Nhắn tin" component={ChatStack} /> */}
       <Tab.Screen name="Thông tin" component={TaiKhoanStack} />
-      <Tab.Screen name="Momo" component={ThanhToanMM} />
+      {/* <Tab.Screen name="Momo" component={ThanhToanMM} /> */}
 
       
     </Tab.Navigator>

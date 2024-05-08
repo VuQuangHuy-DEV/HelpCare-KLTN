@@ -35,6 +35,8 @@ def get_full_image_url(request, file_path):
 
     domain = request.META['HTTP_HOST']
     full_url = f"http://{domain}{file_path}"
+    # huy add
+    full_url = f"{file_path}"
     return full_url
 
 
@@ -53,6 +55,8 @@ def convert_phone_number(raw_phone_number):
 def custom_user_image_path(instance, filename, path='general'):
     instance_id = str(instance.id)
     upload_path = os.path.join(f'user_media/images/{path}/', instance_id)
+    upload_path = os.path.join(f'user_media/images/{path}', instance_id)
+
     new_filename = f'{uuid.uuid4()}{os.path.splitext(filename)[1]}'
     return os.path.join(upload_path, new_filename)
 
@@ -133,25 +137,5 @@ def validate_image_format(value):
 
 
 def send_log_email(request):
-    phone_number = request.data.get('phone_number', None)
-    user_agent = get_user_agent(request)
-    device = user_agent.device
-    browser = user_agent.browser
-    os = user_agent.os
+    pass
 
-    # Tạo nội dung email
-    subject = "[XeOi] Cảnh báo đăng nhập hệ thống"
-    content = (
-        f'<table border="1">'
-        f'<tr><td>Số điện thoại</td><td>{phone_number}</td></tr>'
-        f'<tr><td>Thời điểm đăng nhập</td><td>{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}</td></tr>'
-        f'<tr><td>Trình duyệt</td><td>{browser}</td></tr>'
-        f'<tr><td>Thiết bị</td><td>{device}</td></tr>'
-        f'<tr><td>Hệ điều hành</td><td>{os}</td></tr>'
-        f'</table>'
-    )
-    recipient_list = ['dinhtruongnguyen11@gmail.com']
-
-    # Gửi email
-    if not settings.DEBUG:
-        send_email(recipient_list, subject, content)

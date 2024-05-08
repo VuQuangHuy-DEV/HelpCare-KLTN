@@ -1,8 +1,7 @@
 
-
 from django.db.models import Q
 
-from Authentication.models import User
+from Authentication.models import User,KhachHang
 from rest_framework import status
 from rest_framework.views import APIView
 
@@ -15,14 +14,10 @@ from .serializers import BookingListSerializer, CreateBookingSerializer, Booking
 class BookingListAPIView(APIView):
     @api_decorator
     def get(self, request):
-        posts = BaiThue.objects.filter(
-            ~Q(proposal__status="successful")
-        ).order_by('-created_at')
+        posts = BaiThue.objects.filter().order_by('-created_at')
 
-        paginator = CustomPagination()
-        result_page = paginator.paginate_queryset(posts, request)
-        serializer = BookingListSerializer(result_page, many=True)
-        data = paginator.get_paginated_response(serializer.data).data
+        serializer = BookingListSerializer(posts, many=True)
+        data = serializer.data
         return data, "Retrieve data successfully", status.HTTP_200_OK
 
     @api_decorator
@@ -50,16 +45,26 @@ class BookingListAPIView(APIView):
 
 
 class BookingFilterListAPIView(APIView):
-    @api_decorator
-    def get(self, request, pk):
-        #posts = BaiThue.objects.filter(vehicle=vehicle).order_by('-created_at')
-        paginator = CustomPagination()
-       # result_page = paginator.paginate_queryset(posts, request)
-        #serializer = BookingListSerializer(result_page, many=True)
-       # data = paginator.get_paginated_response(serializer.data).data
+    # @api_decorator
+    # def get(self, request, pk):
+    #     #posts = BaiThue.objects.filter(vehicle=vehicle).order_by('-created_at')
+    #     paginator = CustomPagination()
+    #    # result_page = paginator.paginate_queryset(posts, request)
+    #     #serializer = BookingListSerializer(result_page, many=True)
+    #    # data = paginator.get_paginated_response(serializer.data).data
         pass
        # return data, "Retrieve data successfully", status.HTTP_200_OK
+class CreateBookingAPIView(APIView):
+    @api_decorator
+    def post(self, request):
 
+        khach_hang_id = request.data.get('khach_hang_id', None)
+        khach_hang = KhachHang.objects.get(idkh=khach_hang_id)
+        serializer = CreateBookingSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(khach_hang_id=khach_hang)
+            data = serializer.data
+            return data, "Create booking post successfully", status.HTTP_201_CREATED
 
 class BookingByUserListAPIView(APIView):
     @api_decorator
@@ -73,25 +78,48 @@ class BookingByUserListAPIView(APIView):
         return data, "Retrieve data successfully", status.HTTP_200_OK
 
 
-class CreateBookingAPIView(APIView):
-    @api_decorator
-    def post(self, request):
-        vehicle_id = request.data.get('vehicle_id', None)
-        user_id = request.data.get('user_id', None)
-        user = User.objects.get(id=user_id)
-        #vehicle = Vehicle.objects.get(id=vehicle_id)
 
-        serializer = CreateBookingSerializer(data=request.data, context={'request': request})
-        if serializer.is_valid(raise_exception=True):
-            #serializer.save(user=user, vehicle=vehicle)
-            data = serializer.data
-            data.pop('user', None)
-            return data, "Create booking post successfully", status.HTTP_201_CREATED
 
 
 class BookingDetailAPIView(APIView):
     @api_decorator
     def get(self, request, pk):
         queryset = BaiThue.objects.get(id=pk)
-        serializer = BookingDetailSerializer(queryset, context={'request': request})
+        serializer = BookingDetailSerializer(queryset)
+        return serializer.data, "Retrieve data successfully", status.HTTP_200_OK
+
+class BookingListByKhachHangAPIView(APIView):
+    @api_decorator
+    def get(self, request):
+        posts = BaiThue.objects.filter().order_by('-created_at')
+
+        serializer = BookingListSerializer(posts, many=True)
+        data = serializer.data
+        return data, "Retrieve data successfully", status.HTTP_200_OK
+
+    @api_decorator
+    def get(self, request,idkh):
+        khachhang = KhachHang.objects.get(idkh=idkh)
+        posts = BaiThue.objects.filter(khach_hang_id=khachhang).order_by('-created_at')
+        serializer = BookingListSerializer(posts, many=True)
+        return serializer.data, "Retrieve data successfully", status.HTTP_200_OK
+
+# approve Booking
+
+class BookingApproveAPIView(APIView):
+    @api_decorator
+    def get(self, request, pk):
+        baithue = BaiThue.objects.get(id=pk)
+        baithue.duyet_bai()
+        serializer = BookingDetailSerializer(baithue)
+         # Gọi phương thức duyet_bai mà không truyền tham số
+        return serializer.data, "Retrieve data successfully", status.HTTP_200_OK
+
+class BookingrefuseAPIView(APIView):
+    @api_decorator
+    def get(self, request, pk):
+        baithue = BaiThue.objects.get(id=pk)
+        baithue.tu_choi()
+        serializer = BookingDetailSerializer(baithue)
+         # Gọi phương thức duyet_bai mà không truyền tham số
         return serializer.data, "Retrieve data successfully", status.HTTP_200_OK

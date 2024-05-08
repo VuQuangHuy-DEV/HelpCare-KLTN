@@ -1,8 +1,7 @@
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
 
-from Authentication.models import User, KhachHang
-from core import settings
+from Authentication.models import User, KhachHang,NhanVien
 from ultis.helper import validate_image_format
 
 
@@ -93,13 +92,16 @@ class GetKhachHangInfoSerializer(serializers.ModelSerializer):
         exclude = (
 
             'user_permissions',
-
+            'groups'
         )
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
         data['phone_number'] = data['local_phone_number']
+
+        data['anh_dai_dien'] = "https://"+ data['anh_dai_dien'][10:]
         data.pop('local_phone_number', None)
+
 
         return data
 
@@ -128,4 +130,18 @@ class KhachHangGetListSerializer(serializers.ModelSerializer):
         model = KhachHang
         exclude = ['password','last_login','is_superuser','groups','user_permissions']
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['anh_dai_dien'] = "https://"+ data['anh_dai_dien'][10:]
+        return data
 
+
+class NhanVienGetListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NhanVien
+        exclude = ['password','last_login','is_superuser','groups','user_permissions']
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['anh_dai_dien'] = "https://"+ data['anh_dai_dien'][10:]
+        return data

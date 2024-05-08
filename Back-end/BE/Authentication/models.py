@@ -73,7 +73,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_expired = models.DateField(null=True)
     place_issued = models.CharField(max_length=200, blank=True)
     dia_chi = models.CharField(max_length=200, blank=True)
-    anh_dai_dien = models.ImageField(upload_to=avatar_image_path, default='https://res.cloudinary.com/dtwy0ch1a/image/upload/v1712333902/avatarDefault.png')
+    anh_dai_dien = models.ImageField(default='res.cloudinary.com/dtwy0ch1a/image/upload/v1712333902/avatarDefault.png')
 
 
     # Notification
@@ -161,11 +161,13 @@ def generate_otp(sender, instance, **kwargs):
 class NhanVien(User):
     idnv = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     ma_nhan_vien = models.CharField(max_length=100)
-
-
-
     def __str__(self):
         return  self.ho_ten
+    def generate_ma(self):
+        # Sinh ra 6 số ngẫu nhiên từ 0 đến 9
+        so_ngau_nhien = ''.join(str(random.randint(0, 9)) for _ in range(6))
 
+        # Kết hợp chuỗi 'KH' với 6 số ngẫu nhiên
+        self.ma_khach_hang = 'NV' + so_ngau_nhien
 
 

@@ -22,9 +22,20 @@ class BaiTimViec(models.Model):
     location = models.CharField(max_length=100)
     price = models.PositiveIntegerField()
     sub_service = models.CharField(max_length=200)
-
-    khach_hang = models.ForeignKey(KhachHang, on_delete=models.CASCADE)
-    image_desc1 = models.ImageField(upload_to=custom_image_path, default='/')
+    khach_hang_id = models.ForeignKey(KhachHang, on_delete=models.CASCADE)
     ngay_khoi_tao = models.DateTimeField(auto_now_add=True)
+
+    da_duyet = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.tieu_de
+
+    def duyet_bai(self):
+        self.da_duyet = True
+        self.save()
+
+    def tu_choi(self):
+        self.da_duyet = False
+        self.save()
 
 

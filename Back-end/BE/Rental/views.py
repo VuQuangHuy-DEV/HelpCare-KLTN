@@ -14,11 +14,11 @@ from rest_framework.views import APIView
 class RentalListAPIView(APIView):
     @api_decorator
     def get(self, request):
-        posts = BaiTimViec.objects.all().order_by('-ngay_khoi_tao')
+        posts = BaiTimViec.objects.all().order_by('ngay_khoi_tao')
         serializer = BaiTimViecsSerializer(posts, many=True, context={'request': request})
-        data = (serializer.data)
 
-        return data, "Retrieve data successfully", status.HTTP_200_OK
+
+        return serializer.data, "Retrieve data successfully", status.HTTP_200_OK
 
 
 # Tạo một bài Tìm việc mới
@@ -30,7 +30,6 @@ class RentalCreateAPIView(APIView):
         serializer = RentalCreateSerializer(data=request.data, context={'request': request})
         if serializer.is_valid(raise_exception=True):
             serializer.save(khach_hang=khach_hang)
-            data = serializer.data
             return serializer.data, "Create rental post successfully", status.HTTP_201_CREATED
 
 

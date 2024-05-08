@@ -1,9 +1,9 @@
 from datetime import datetime
 
 from rest_framework import serializers
-from Authentication.models import User
+from Authentication.models import User,KhachHang
 from Bidding.models import Proposal
-from Rental.serializers import UserSerializer
+from Authentication.serializers import KhachHangGetListSerializer
 from ultis.api_helper import format_time_difference
 from .models import BaiThue
 
@@ -22,9 +22,8 @@ class CreateBookingSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class BookingListSerializer(serializers.ModelSerializer):
-    vehicle = serializers.StringRelatedField()
-    vehicle_status = serializers.StringRelatedField()
-    user = UserSerializer()
+
+    khach_hang_id = KhachHangGetListSerializer()
     created_at = serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S", read_only=True)
 
     class Meta:
@@ -33,7 +32,6 @@ class BookingListSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        data['bidders'] = ProposalSerializer(instance.proposal_set.all(), many=True).data
         return data
 
 
@@ -56,9 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class BookingDetailSerializer(serializers.ModelSerializer):
-    vehicle = serializers.StringRelatedField()
-    vehicle_status = serializers.StringRelatedField()
-    user = UserSerializer()
+    khach_hang_id = KhachHangGetListSerializer()
     created_at = serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S", read_only=True)
 
     class Meta:
@@ -69,5 +65,5 @@ class BookingDetailSerializer(serializers.ModelSerializer):
         data = super().to_representation(instance)
         data['time_ago'] = format_time_difference(datetime.strptime(data['created_at'], "%d/%m/%Y %H:%M:%S"),
                                                   datetime.now())
-        data['bidders'] = ProposalSerializer(instance.proposal_set.all(), many=True).data
+
         return data

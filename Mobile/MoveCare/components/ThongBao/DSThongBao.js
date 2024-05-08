@@ -12,6 +12,7 @@ import { API_ROOT } from "../../config-global";
 const API_NOTI= API_ROOT + "notication/notis/byUser/b7e5d5cd7d6c4a11a646252acb0a5550/"
 
 import ChiTietTB from "./ChiTietTB";
+import { PRIMARY } from "../../assets/style/style-global";
 
 
 const DSThongBao = ({navigation}) => {
@@ -62,7 +63,7 @@ const DSThongBao = ({navigation}) => {
           >
             <Text style={styles.notificationTitle}>Tiêu đề: {item.tieu_de}</Text>
             <Text style={styles.notificationDescription}>Nội dung: {item.mota_ngan}</Text>
-            <Text style={styles.notificationDescription}> {item.da_doc ? "Đã đọc" :"Chưa đọc" }</Text>
+            <Text style={styles.notificationDescription}>Trạng thái:  {item.da_doc ? "Đã đọc" :"Chưa đọc" }</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -89,13 +90,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
+    textAlign:"center"
   },
   notificationItem: {
     padding: 10,
     marginBottom: 10,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: PRIMARY.main,
     marginHorizontal:5
   },
   notificationTitle: {
